@@ -64,29 +64,44 @@ export class HospitalesComponent implements OnInit, OnDestroy {
 
   guardarCambios( hospital: Hospital ) {
 
+  
     this.hospitalService.actualizarHospital( hospital._id, hospital.nombre )
         .subscribe( resp => {
           Swal.fire( 'Actualizado', hospital.nombre, 'success' );
         });
-
+        
   }
 
   eliminarHospital( hospital: Hospital ) {
-
+    Swal.fire({
+      title: '¿Borrar Tema?',
+      text: `Esta a punto de borrar a ${ hospital.nombre }`,
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonText: 'Si, borrarlo'
+    }).then((result) => {
+      if (result.value) {
     this.hospitalService.borrarHospital( hospital._id )
         .subscribe( resp => {
           this.cargarHospitales();
-          Swal.fire( 'Borrado', hospital.nombre, 'success' );
+          Swal.fire( ' Borrado', hospital.nombre, 'success' );
+          Swal.fire(
+            'Tema borrado',
+            `${hospital.nombre} fue eliminado correctamente`,
+            'success'
+          );
         });
+      }
+    })
 
   }
 
   async abrirSweetAlert() {
     const { value = '' } = await Swal.fire<string>({
-      title: 'Crear hospital',
-      text: 'Ingrese el nombre del nuevo hospital',
+      title: 'Crear tema',
+      text: 'Ingrese el nombre del nuevo tema',
       input: 'text',
-      inputPlaceholder: 'Nombre del hospital',
+      inputPlaceholder: 'Nombre del tema',
       showCancelButton: true,
     });
 

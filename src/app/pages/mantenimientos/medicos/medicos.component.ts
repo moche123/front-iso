@@ -67,7 +67,7 @@ export class MedicosComponent implements OnInit, OnDestroy {
   borrarMedico( medico: Medico ) {
 
     Swal.fire({
-      title: '¿Borrar médico?',
+      title: '¿Borrar publicación?',
       text: `Esta a punto de borrar a ${ medico.nombre }`,
       icon: 'question',
       showCancelButton: true,
@@ -80,7 +80,7 @@ export class MedicosComponent implements OnInit, OnDestroy {
             
             this.cargarMedicos();
             Swal.fire(
-              'Médico borrado',
+              'Publicación borrada',
               `${ medico.nombre } fue eliminado correctamente`,
               'success'
             );
