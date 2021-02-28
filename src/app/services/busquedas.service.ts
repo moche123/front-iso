@@ -4,8 +4,8 @@ import { environment } from '../../environments/environment';
 import { map } from 'rxjs/operators';
 
 import { Usuario } from '../models/usuario.model';
-import { Hospital } from '../models/hospital.model';
-import { Medico } from '../models/medico.model';
+import { Tema } from '../models/tema.model';
+import { Publicacion } from '../models/publicacion.model';
 
 const base_url = environment.base_url;
 
@@ -32,15 +32,15 @@ export class BusquedasService {
   private transformarUsuarios( resultados: any[] ): Usuario[] {
 
     return resultados.map(
-      user => new Usuario(user.nombre, user.email, '', user.img, user.google, user.role, user.uid )  
+      user => new Usuario(user.nombre, user.email, '', user.img, user.google, user.role, user.uid )
     );
   }
 
-  private transformarHospitales( resultados: any[] ): Hospital[] {
+  private transformarTemas( resultados: any[] ): Tema[] {
     return resultados;
   }
 
-  private transformarMedicos( resultados: any[] ): Medico[] {
+  private transformarPublicaciones( resultados: any[] ): Publicacion[] {
     return resultados;
   }
 
@@ -52,26 +52,26 @@ export class BusquedasService {
   }
 
 
-  buscar( 
-      tipo: 'usuarios'|'medicos'|'hospitales',
+  buscar(
+      tipo: 'usuarios'|'publicaciones'|'temas',
       termino: string
     ) {
 
     const url = `${ base_url }/todo/coleccion/${ tipo }/${ termino }`;
     return this.http.get<any[]>( url, this.headers )
             .pipe(
-              map( (resp: any ) => { 
+              map( (resp: any ) => {
 
                 switch ( tipo ) {
                   case 'usuarios':
                     return this.transformarUsuarios( resp.resultados )
 
-                  case 'hospitales':
-                    return this.transformarHospitales( resp.resultados )
+                  case 'temas':
+                    return this.transformarTemas( resp.resultados )
 
-                  case 'medicos':
-                     return this.transformarMedicos( resp.resultados )
-                
+                  case 'publicaciones':
+                     return this.transformarPublicaciones( resp.resultados )
+
                   default:
                     return [];
                 }

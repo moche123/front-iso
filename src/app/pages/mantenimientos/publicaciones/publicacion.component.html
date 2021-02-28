@@ -3,34 +3,34 @@
     <div class="col-md-6">
         <div class="card">
             <div class="card-body">
-                
+
                 <h4 class="card-title">Publicación</h4>
                 <h6 class="card-subtitle">Actualizar información</h6>
 
                 <form class="form-horizontal p-t-20"
-                        [formGroup]="medicoForm"
-                        (submit)="guardarMedico()">
+                        [formGroup]="publicacionForm"
+                        (submit)="guardarPublicacion()">
 
                     <div class="form-group row"
-                            *ngIf="medicoSeleccionado">
+                            *ngIf="publicacionSeleccionado">
                         <label for="exampleInputuname3" class="col-sm-3 control-label">Foto</label>
                         <div class="col-sm-9">
                             <div class="input-group">
-                                <img [src]="medicoSeleccionado.img | imagen: 'medicos'" 
+                                <img [src]="publicacionSeleccionado.img | imagen: 'publicaciones'"
                                      class="w200"/>
                             </div>
                         </div>
                     </div>
-                    
+
                     <div class="form-group row">
                         <label for="exampleInputuname3" class="col-sm-3 control-label">Nombre</label>
                         <div class="col-sm-9">
                             <div class="input-group">
                                 <div class="input-group-addon"><i class="ti-user"></i></div>
-                                <input type="text" 
+                                <input type="text"
                                         formControlName="nombre"
-                                        class="form-control" 
-                                        id="exampleInputuname3" 
+                                        class="form-control"
+                                        id="exampleInputuname3"
                                         placeholder="Nombre de la Publicación">
                             </div>
                         </div>
@@ -41,11 +41,11 @@
                         <div class="col-sm-9">
                             <div class="input-group">
                                 <select class="form-control"
-                                        formControlName="hospital">
+                                        formControlName="tema">
                                     <option value="">Seleccione Tema</option>
-                                    <option *ngFor="let hospital of hospitales"
-                                        [value]="hospital._id">
-                                        {{ hospital.nombre }}
+                                    <option *ngFor="let tema of temas"
+                                        [value]="tema._id">
+                                        {{ tema.nombre }}
                                     </option>
                                 </select>
                             </div>
@@ -55,7 +55,7 @@
                     <div class="form-group row m-b-0">
                         <div class="offset-sm-3 col-sm-9">
                             <button type="submit"
-                                    [disabled]="medicoForm.invalid"
+                                    [disabled]="publicacionForm.invalid"
                                     class="btn btn-success waves-effect waves-light">
                                 <i class="fa fa-save"></i>
                                 Guardar
@@ -67,15 +67,15 @@
         </div>
     </div>
 
-    <div class="col animated fadeIn fast"  
-        *ngIf="hospitalSeleccionado">
+    <div class="col animated fadeIn fast"
+        *ngIf="temaSeleccionado">
         <div class="card">
             <div class="card-body">
-                
-                <h4 class="card-title">Tema</h4>
-                <h6 class="card-subtitle">{{ hospitalSeleccionado.nombre }}</h6>
 
-                <img [src]="hospitalSeleccionado.img | imagen:'hospitales'" 
+                <h4 class="card-title">Tema</h4>
+                <h6 class="card-subtitle">{{ temaSeleccionado.nombre }}</h6>
+
+                <img [src]="temaSeleccionado.img | imagen:'temas'"
                     class="img-thumbnail"/>
 
             </div>

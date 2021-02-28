@@ -1,17 +1,20 @@
-interface _HospitalUser {
+import { Tema } from './tema.model';
+
+interface _PublicacionUser {
     _id: string;
     nombre: string;
     img: string;
 }
 
 
-export class Hospital {
+export class Publicacion {
 
     constructor(
         public nombre: string,
         public _id?: string,
         public img?: string,
-        public usuario?: _HospitalUser,
+        public usuario?: _PublicacionUser,
+        public tema?: Tema
     ) {}
 
 }

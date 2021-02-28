@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root'
 })
 export class SidebarService {
-  
+
   public menu = [];
 
   cargarMenu() {
@@ -30,7 +30,7 @@ export class SidebarService {
   //     submenu: [
   //       { titulo: 'Usuarios', url: 'usuarios' },
   //       { titulo: 'Hospitales', url: 'hospitales' },
-  //       { titulo: 'Médicos', url: 'medicos' },
+  //       { titulo: 'Médicos', url: 'publicaciones' },
   //     ]
   //   },
   // ];

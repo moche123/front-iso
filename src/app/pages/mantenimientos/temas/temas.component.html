@@ -2,7 +2,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                
+
                 <input type="text"
                         class="form-control"
                         placeholder="Buscar tema..."
@@ -12,12 +12,12 @@
             </div>
         </div>
     </div>
-</div> 
+</div>
 
 <div class="row animated fadeIn fast"
     *ngIf="cargando">
     <div class="col-12">
-        
+
         <div class="alert alert-info text-center">
           <h4 class="alert-heading">Cargando</h4>
           <i class="fa fa-spin fa-refresh fa-2x"></i>
@@ -25,7 +25,7 @@
         </div>
 
     </div>
-</div> 
+</div>
 
 
 <div class="row"
@@ -37,7 +37,7 @@
 
                 <div class="row">
                     <div class="col-8">
-                        <h4 class="card-title">Temas ({{ hospitales.length }})</h4>
+                        <h4 class="card-title">Temas ({{ temas.length }})</h4>
                         <h6 class="card-subtitle">
                             Temas registrados en mi aplicación
                         </h6>
@@ -47,7 +47,7 @@
                         <div class="text-right">
                             <button class="btn btn-primary"
                                     (click)="abrirSweetAlert()">
-                                <i class="fa fa-hospital-o"></i> 
+                                <i class="fa fa-hospital-o"></i>
                                 Crear Tema
                             </button>
                         </div>
@@ -55,10 +55,10 @@
 
                 </div>
 
-                
 
 
-                
+
+
 
                 <div class="table-responsive">
                     <table class="table table-bordered">
@@ -70,37 +70,37 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let hospital of hospitales">
-                                <td class="text-center"> 
-                                    <img [src]="hospital.img | imagen:'hospitales'" 
-                                        [alt]="hospital.nombre"
+                            <tr *ngFor="let tema of temas">
+                                <td class="text-center">
+                                    <img [src]="tema.img | imagen:'temas'"
+                                        [alt]="tema.nombre"
                                         class="w100 cursor"
-                                        (click)="abrirModal(hospital)"> 
+                                        (click)="abrirModal(tema)">
                                 </td>
                                 <td>
-                                    <input type="text" 
+                                    <input type="text"
                                             class="form-control"
-                                            placeholder="Nombre del hospital"
-                                            [(ngModel)]="hospital.nombre" />
+                                            placeholder="Nombre del tema"
+                                            [(ngModel)]="tema.nombre" />
                                 </td>
-                                
+
                                 <td class="text-nowrap text-center">
-                                    <a (click)="guardarCambios(hospital)"
-                                        data-toggle="tooltip" 
+                                    <a (click)="guardarCambios(tema)"
+                                        data-toggle="tooltip"
                                         class="cursor"
-                                        data-original-title="Guardar cambios"> 
-                                        <i class="fa fa-pencil text-inverse m-r-10"></i> 
+                                        data-original-title="Guardar cambios">
+                                        <i class="fa fa-pencil text-inverse m-r-10"></i>
                                     </a>
 
-                                    <a (click)="eliminarHospital(hospital)" 
-                                        data-toggle="tooltip" 
+                                    <a (click)="eliminarTema(tema)"
+                                        data-toggle="tooltip"
                                         data-original-title="Borrar"
-                                        class="cursor"> 
+                                        class="cursor">
                                         <i class="fa fa-close text-danger"></i>
                                     </a>
                                 </td>
                             </tr>
-                            
+
                         </tbody>
                     </table>
                 </div>

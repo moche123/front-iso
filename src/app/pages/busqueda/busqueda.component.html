@@ -25,7 +25,7 @@
                             <tr *ngFor="let usuario of usuarios"
                                 class="animated fadeIn fast">
                                 <td>
-                                    <img [src]="usuario.img | imagen:'usuarios'" 
+                                    <img [src]="usuario.img | imagen:'usuarios'"
                                          class="w75"/>
                                 </td>
                                 <td>{{ usuario.nombre }}</td>
@@ -45,14 +45,14 @@
                 <h3>Tema</h3>
 
                 <div class="alert alert-info animated fadeIn fast"
-                    *ngIf="hospitales.length === 0">
+                    *ngIf="temas.length === 0">
                   <p class="mb-0">
                       No hay tema con ese término
                   </p>
                 </div>
 
                 <div class="table-responsive"
-                    *ngIf="hospitales.length > 0">
+                    *ngIf="temas.length > 0">
                     <table class="table">
                         <thead>
                             <tr>
@@ -61,13 +61,13 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let hospital of hospitales"
+                            <tr *ngFor="let tema of temas"
                                 class="animated fadeIn fast">
                                 <td>
-                                    <img [src]="hospital.img | imagen:'hospitales'" 
+                                    <img [src]="tema.img | imagen:'temas'"
                                          class="w75"/>
                                 </td>
-                                <td>{{ hospital.nombre }}</td>
+                                <td>{{ tema.nombre }}</td>
                             </tr>
                         </tbody>
                     </table>
@@ -84,14 +84,14 @@
                 <h3>Publicación</h3>
 
                 <div class="alert alert-info animated fadeIn fast"
-                    *ngIf="medicos.length === 0">
+                    *ngIf="publicaciones.length === 0">
                   <p class="mb-0">
                       No hay publicacion con ese término
                   </p>
                 </div>
 
                 <div class="table-responsive"
-                    *ngIf="medicos.length > 0">
+                    *ngIf="publicaciones.length > 0">
                     <table class="table">
                         <thead>
                             <tr>
@@ -100,15 +100,15 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr *ngFor="let medico of medicos"
+                            <tr *ngFor="let publicacion of publicaciones"
                                 class="animated fadeIn fast">
                                 <td>
-                                    <img [src]="medico.img | imagen:'medicos'" 
+                                    <img [src]="publicacion.img | imagen:'publicaciones'"
                                          class="w75"/>
                                 </td>
                                 <td>
-                                    <a [routerLink]="['/dashboard/medico', medico._id ]">
-                                        {{ medico.nombre }}
+                                    <a [routerLink]="['/dashboard/publicacion', publicacion._id ]">
+                                        {{ publicacion.nombre }}
                                     </a>
                                 </td>
                             </tr>
@@ -120,4 +120,4 @@
             </div>
         </div>
     </div>
-</div> 
+</div>

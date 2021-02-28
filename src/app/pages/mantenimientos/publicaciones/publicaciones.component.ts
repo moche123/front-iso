@@ -3,88 +3,88 @@ import { Subscription } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 
-import { Medico } from '../../../models/medico.model';
+import { Publicacion } from '../../../models/publicacion.model';
 
 import { BusquedasService } from '../../../services/busquedas.service';
-import { MedicoService } from '../../../services/medico.service';
+import { PublicacionService } from '../../../services/publicacion.service';
 import { ModalImagenService } from '../../../services/modal-imagen.service';
 
 @Component({
-  selector: 'app-medicos',
-  templateUrl: './medicos.component.html',
+  selector: 'app-publicaciones',
+  templateUrl: './publicaciones.component.html',
   styles: [
   ]
 })
-export class MedicosComponent implements OnInit, OnDestroy {
+export class PublicacionesComponent implements OnInit, OnDestroy {
 
   public cargando: boolean = true;
-  public medicos: Medico[] = [];
+  public publicaciones: Publicacion[] = [];
   private imgSubs: Subscription;
 
-  constructor( private medicoService: MedicoService,
+  constructor( private publicacionService: PublicacionService,
                private modalImagenService: ModalImagenService,
                private busquedasService: BusquedasService ) { }
-  
+
   ngOnDestroy(): void {
     this.imgSubs.unsubscribe()
   }
 
   ngOnInit(): void {
-    this.cargarMedicos();
+    this.cargarPublicaciones();
 
     this.imgSubs = this.imgSubs = this.modalImagenService.nuevaImagen
       .pipe(delay(100))
-      .subscribe( img => this.cargarMedicos() );
+      .subscribe( img => this.cargarPublicaciones() );
   }
 
-  cargarMedicos() {
+  cargarPublicaciones() {
     this.cargando = true;
-    this.medicoService.cargarMedicos()
-      .subscribe( medicos => {
+    this.publicacionService.cargarPublicaciones()
+      .subscribe( publicaciones => {
         this.cargando = false;
-        this.medicos = medicos;
+        this.publicaciones = publicaciones;
       });
   }
 
   buscar( termino: string ) {
 
     if ( termino.length === 0 ) {
-      return this.cargarMedicos();
+      return this.cargarPublicaciones();
     }
 
-    this.busquedasService.buscar( 'medicos', termino )
+    this.busquedasService.buscar( 'publicaciones', termino )
         .subscribe( resp => {
-          this.medicos = resp;
+          this.publicaciones = resp;
         });
   }
 
-  abrirModal(medico: Medico) {
+  abrirModal(publicacion: Publicacion) {
 
-    this.modalImagenService.abrirModal( 'medicos', medico._id, medico.img );
+    this.modalImagenService.abrirModal( 'publicaciones', publicacion._id, publicacion.img );
 
   }
 
-  borrarMedico( medico: Medico ) {
+  borrarPublicacion( publicacion: Publicacion ) {
 
     Swal.fire({
       title: '¿Borrar publicación?',
-      text: `Esta a punto de borrar a ${ medico.nombre }`,
+      text: `Esta a punto de borrar a ${ publicacion.nombre }`,
       icon: 'question',
       showCancelButton: true,
       confirmButtonText: 'Si, borrarlo'
     }).then((result) => {
       if (result.value) {
-        
-        this.medicoService.borrarMedico( medico._id )
+
+        this.publicacionService.borrarPublicacion( publicacion._id )
           .subscribe( resp => {
-            
-            this.cargarMedicos();
+
+            this.cargarPublicaciones();
             Swal.fire(
               'Publicación borrada',
-              `${ medico.nombre } fue eliminado correctamente`,
+              `${ publicacion.nombre } fue eliminado correctamente`,
               'success'
             );
-            
+
           });
 
       }

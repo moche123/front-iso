@@ -9,7 +9,7 @@ const base_url = environment.base_url;
 export class ModalImagenService {
 
   private _ocultarModal: boolean = true;
-  public tipo: 'usuarios'|'medicos'|'hospitales';
+  public tipo: 'usuarios'|'publicaciones'|'temas';
   public id: string;
   public img: string;
 
@@ -19,15 +19,15 @@ export class ModalImagenService {
     return this._ocultarModal;
   }
 
-  abrirModal( 
-      tipo: 'usuarios'|'medicos'|'hospitales',
+  abrirModal(
+      tipo: 'usuarios'|'publicaciones'|'temas',
       id: string,
       img: string = 'no-img'
     ) {
     this._ocultarModal = false;
     this.tipo = tipo;
     this.id = id;
-    // localhost:3000/api/upload/medicos/no-img
+    // localhost:3000/api/upload/publicaciones/no-img
       if ( img.includes('https') ) {
         this.img = img;
       } else {

@@ -3,25 +3,25 @@ import { Subscription } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 
-import { Hospital } from '../../../models/hospital.model';
+import { Tema } from '../../../models/tema.model';
 
 import { BusquedasService } from '../../../services/busquedas.service';
-import { HospitalService } from '../../../services/hospital.service';
+import { TemaService } from '../../../services/tema.service.';
 import { ModalImagenService } from '../../../services/modal-imagen.service';
 
 @Component({
-  selector: 'app-hospitales',
-  templateUrl: './hospitales.component.html',
+  selector: 'app-temas',
+  templateUrl: './temas.component.html',
   styles: [
   ]
 })
-export class HospitalesComponent implements OnInit, OnDestroy {
+export class TemasComponent implements OnInit, OnDestroy {
 
-  public hospitales: Hospital[] = [];
+  public temas: Tema[] = [];
   public cargando: boolean = true;
   private imgSubs: Subscription;
 
-  constructor( private hospitalService: HospitalService,
+  constructor( private temaService: TemaService,
                private modalImagenService: ModalImagenService,
                private busquedasService: BusquedasService ) { }
 
@@ -30,64 +30,64 @@ export class HospitalesComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.cargarHospitales();
+    this.cargarTemas();
 
     this.imgSubs = this.imgSubs = this.modalImagenService.nuevaImagen
       .pipe(delay(100))
-      .subscribe( img => this.cargarHospitales() );
+      .subscribe( img => this.cargarTemas() );
   }
 
   buscar( termino: string ) {
 
     if ( termino.length === 0 ) {
-      return this.cargarHospitales();
+      return this.cargarTemas();
     }
 
-    this.busquedasService.buscar( 'hospitales', termino )
+    this.busquedasService.buscar( 'temas', termino )
         .subscribe( resp => {
 
-          this.hospitales = resp;
+          this.temas = resp;
 
         });
   }
 
-  cargarHospitales() {
+  cargarTemas() {
 
     this.cargando = true;
-    this.hospitalService.cargarHospitales()
-        .subscribe( hospitales => {
+    this.temaService.cargarTemas()
+        .subscribe( temas => {
           this.cargando = false;
-          this.hospitales = hospitales;
+          this.temas = temas;
         })
 
   }
 
-  guardarCambios( hospital: Hospital ) {
+  guardarCambios( tema: Tema ) {
 
-  
-    this.hospitalService.actualizarHospital( hospital._id, hospital.nombre )
+
+    this.temaService.actualizarTema( tema._id, tema.nombre )
         .subscribe( resp => {
-          Swal.fire( 'Actualizado', hospital.nombre, 'success' );
+          Swal.fire( 'Actualizado', tema.nombre, 'success' );
         });
-        
+
   }
 
-  eliminarHospital( hospital: Hospital ) {
+  eliminarTema( tema: Tema ) {
     Swal.fire({
       title: '¿Borrar Tema?',
-      text: `Esta a punto de borrar a ${ hospital.nombre }`,
+      text: `Esta a punto de borrar a ${ tema.nombre }`,
       icon: 'question',
       showCancelButton: true,
       confirmButtonText: 'Si, borrarlo'
     }).then((result) => {
       if (result.value) {
-    this.hospitalService.borrarHospital( hospital._id )
+    this.temaService.borrarTema( tema._id )
         .subscribe( resp => {
-          this.cargarHospitales();
-          Swal.fire( ' Borrado', hospital.nombre, 'success' );
+          this.cargarTemas();
+          Swal.fire( ' Borrado', tema.nombre, 'success' );
           Swal.fire(
             'Tema borrado',
-            `${hospital.nombre} fue eliminado correctamente`,
+            `${tema.nombre} fue eliminado correctamente`,
             'success'
           );
         });
@@ -106,16 +106,16 @@ export class HospitalesComponent implements OnInit, OnDestroy {
     });
 
     if( value.trim().length > 0 ) {
-      this.hospitalService.crearHospital( value )
+      this.temaService.crearTema( value )
         .subscribe( (resp: any) => {
-          this.hospitales.push( resp.hospital )
+          this.temas.push( resp.tema )
         })
     }
   }
 
-  abrirModal(hospital: Hospital) {
+  abrirModal(tema: Tema) {
 
-    this.modalImagenService.abrirModal( 'hospitales', hospital._id, hospital.img );
+    this.modalImagenService.abrirModal( 'temas', tema._id, tema.img );
 
   }
 

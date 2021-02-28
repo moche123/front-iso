@@ -12,7 +12,7 @@ export class FileUploadService {
 
   async actualizarFoto(
     archivo: File,
-    tipo: 'usuarios'|'medicos'|'hospitales',
+    tipo: 'usuarios'|'publicaciones'|'temas',
     id: string
   ) {
 
@@ -38,10 +38,10 @@ export class FileUploadService {
         console.log(data.msg);
         return false;
       }
-      
+
     } catch (error) {
       console.log(error);
-      return false;    
+      return false;
     }
 
   }

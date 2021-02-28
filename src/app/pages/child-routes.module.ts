@@ -11,9 +11,9 @@ import { PerfilComponent } from './perfil/perfil.component';
 
 // Mantenimientos
 import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component';
-import { HospitalesComponent } from './mantenimientos/hospitales/hospitales.component';
-import { MedicosComponent } from './mantenimientos/medicos/medicos.component';
-import { MedicoComponent } from './mantenimientos/medicos/medico.component';
+import { TemasComponent } from './mantenimientos/temas/temas.component';
+import { PublicacionesComponent } from './mantenimientos/publicaciones/publicaciones.component';
+import { PublicacionComponent } from './mantenimientos/publicaciones/publicacion.component';
 import { BusquedaComponent } from './busqueda/busqueda.component';
 import { AdminGuard } from '../guards/admin.guard';
 
@@ -29,9 +29,9 @@ const childRoutes: Routes = [
   { path: 'rxjs', component: RxjsComponent, data: { titulo: 'RxJs' }},
 
   // Mantenimientos
-  { path: 'hospitales', component: HospitalesComponent, data: { titulo: 'Matenimiento de Hospitales' }},
-  { path: 'medicos', component: MedicosComponent, data: { titulo: 'Matenimiento de Medicos' }},
-  { path: 'medico/:id', component: MedicoComponent, data: { titulo: 'Matenimiento de Medicos' }},
+  { path: 'temas', component: TemasComponent, data: { titulo: 'Matenimiento de Temas' }},
+  { path: 'publicaciones', component: PublicacionesComponent, data: { titulo: 'Matenimiento de Publicaciones' }},
+  { path: 'publicacion/:id', component: PublicacionComponent, data: { titulo: 'Matenimiento de Publicaciones' }},
 
   // Rutas de Admin
   { path: 'usuarios', canActivate: [ AdminGuard ], component: UsuariosComponent, data: { titulo: 'Matenimiento de Usuarios' }},

@@ -18,9 +18,9 @@ import { PromesasComponent } from './promesas/promesas.component';
 import { RxjsComponent } from './rxjs/rxjs.component';
 import { PerfilComponent } from './perfil/perfil.component';
 import { UsuariosComponent } from './mantenimientos/usuarios/usuarios.component';
-import { HospitalesComponent } from './mantenimientos/hospitales/hospitales.component';
-import { MedicosComponent } from './mantenimientos/medicos/medicos.component';
-import { MedicoComponent } from './mantenimientos/medicos/medico.component';
+import { TemasComponent } from './mantenimientos/temas/temas.component';
+import { PublicacionesComponent } from './mantenimientos/publicaciones/publicaciones.component';
+import { PublicacionComponent } from './mantenimientos/publicaciones/publicacion.component';
 import { BusquedaComponent } from './busqueda/busqueda.component';
 
 
@@ -38,9 +38,9 @@ import { BusquedaComponent } from './busqueda/busqueda.component';
     RxjsComponent,
     PerfilComponent,
     UsuariosComponent,
-    HospitalesComponent,
-    MedicosComponent,
-    MedicoComponent,
+    TemasComponent,
+    PublicacionesComponent,
+    PublicacionComponent,
     BusquedaComponent,
   ],
   exports: [
@@ -50,7 +50,7 @@ import { BusquedaComponent } from './busqueda/busqueda.component';
     PagesComponent,
     AccountSettingsComponent
   ],
-  imports: [ 
+  imports: [
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
