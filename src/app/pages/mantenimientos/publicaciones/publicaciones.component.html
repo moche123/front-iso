@@ -63,6 +63,7 @@
                             <tr>
                                 <th class="w100">Foto</th>
                                 <th>Nombre</th>
+                                <th>Contenido</th>
                                 <th class="w100 text-nowrap">Acciones</th>
                             </tr>
                         </thead>
@@ -77,7 +78,17 @@
                                 <td>
                                     {{ publicacion.nombre }}
                                 </td>
-
+                                <td>
+                                  <a [routerLink]="['/dashboard','publicacion', 'ver',publicacion._id ]"
+                                        data-toggle="tooltip"
+                                        data-original-title="Ver Publicación">
+                                        <i class="fa fa-book text-inverse m-r-10"></i>
+                                        Ver contenido
+                                    </a>
+                                </td>
+                                <td>
+                                  test
+                                </td>
                                 <td class="text-nowrap text-center">
                                     <a [routerLink]="['/dashboard','publicacion', publicacion._id ]"
                                         data-toggle="tooltip"

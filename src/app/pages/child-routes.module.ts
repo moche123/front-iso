@@ -16,6 +16,7 @@ import { PublicacionesComponent } from './mantenimientos/publicaciones/publicaci
 import { PublicacionComponent } from './mantenimientos/publicaciones/publicacion.component';
 import { BusquedaComponent } from './busqueda/busqueda.component';
 import { AdminGuard } from '../guards/admin.guard';
+import { VerPublicacionComponent } from './mantenimientos/publicaciones/ver-publicacion.component';
 
 
 const childRoutes: Routes = [
@@ -32,6 +33,7 @@ const childRoutes: Routes = [
   { path: 'temas', component: TemasComponent, data: { titulo: 'Matenimiento de Temas' }},
   { path: 'publicaciones', component: PublicacionesComponent, data: { titulo: 'Matenimiento de Publicaciones' }},
   { path: 'publicacion/:id', component: PublicacionComponent, data: { titulo: 'Matenimiento de Publicaciones' }},
+  { path: 'publicacion/ver/:id', component: VerPublicacionComponent, data: { titulo: 'Observación de las Publicaciones' }},
 
   // Rutas de Admin
   { path: 'usuarios', canActivate: [ AdminGuard ], component: UsuariosComponent, data: { titulo: 'Matenimiento de Usuarios' }},

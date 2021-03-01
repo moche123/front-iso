@@ -37,20 +37,34 @@
                     </div>
 
                     <div class="form-group row">
-                        <label for="exampleInputEmail3" class="col-sm-3 control-label">Tema</label>
+                        <label for="exampleInputText3" class="col-sm-3 control-label">Redacte</label>
                         <div class="col-sm-9">
                             <div class="input-group">
-                                <select class="form-control"
-                                        formControlName="tema">
-                                    <option value="">Seleccione Tema</option>
-                                    <option *ngFor="let tema of temas"
-                                        [value]="tema._id">
-                                        {{ tema.nombre }}
-                                    </option>
-                                </select>
+                              <div class="input-group-addon"><i class="ti-user"></i></div>
+                              <textarea type="text"
+                                      formControlName="contenido"
+                                      class="form-control"
+                                      id="exampleInputText3"
+                                      placeholder="Redacte el tema">
+                              </textarea>
                             </div>
                         </div>
                     </div>
+                    <div class="form-group row">
+                      <label for="exampleInputText3" class="col-sm-3 control-label">Tema</label>
+                      <div class="col-sm-9">
+                          <div class="input-group">
+                              <select class="form-control"
+                                      formControlName="tema">
+                                  <!-- <option value="temas[0]._id">{{temas[0].nombre}}</option> -->
+                                  <option *ngFor="let tema of temas"
+                                      [value]="tema._id" selected>
+                                      {{ tema.nombre }}
+                                  </option>
+                              </select>
+                          </div>
+                      </div>
+                  </div>
 
                     <div class="form-group row m-b-0">
                         <div class="offset-sm-3 col-sm-9">

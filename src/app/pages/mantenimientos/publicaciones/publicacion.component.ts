@@ -40,6 +40,7 @@ export class PublicacionComponent implements OnInit {
     this.publicacionForm = this.fb.group({
       nombre: ['', Validators.required ],
       tema: ['', Validators.required ],
+      contenido:['',Validators.required]
     });
 
     this.cargarTemas();
@@ -66,10 +67,10 @@ export class PublicacionComponent implements OnInit {
           return this.router.navigateByUrl(`/dashboard/publicaciones`);
         }
 
-        const { nombre, tema:{ _id } } = publicacion;
+        const { nombre, tema:{ _id }, contenido } = publicacion;
         this.publicacionSeleccionado = publicacion;
-        this.publicacionForm.setValue({ nombre, tema: _id });
-      });
+        this.publicacionForm.setValue({ nombre, tema: _id, contenido});
+      },err=>console.log(err));
 
   }
 
