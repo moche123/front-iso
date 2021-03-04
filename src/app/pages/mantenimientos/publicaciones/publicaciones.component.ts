@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { delay } from 'rxjs/operators';
+import { delay, publishBehavior } from 'rxjs/operators';
 import Swal from 'sweetalert2';
 
 import { Publicacion } from '../../../models/publicacion.model';
@@ -8,6 +8,11 @@ import { Publicacion } from '../../../models/publicacion.model';
 import { BusquedasService } from '../../../services/busquedas.service';
 import { PublicacionService } from '../../../services/publicacion.service';
 import { ModalImagenService } from '../../../services/modal-imagen.service';
+import { ModalPdfService } from '../../../services/modal-pdf.service';
+
+import { PdfUploadService } from 'src/app/services/pdf-upload.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-publicaciones',
@@ -21,9 +26,13 @@ export class PublicacionesComponent implements OnInit, OnDestroy {
   public publicaciones: Publicacion[] = [];
   private imgSubs: Subscription;
 
+
   constructor( private publicacionService: PublicacionService,
                private modalImagenService: ModalImagenService,
-               private busquedasService: BusquedasService ) { }
+               private busquedasService: BusquedasService,
+              private modalPdfService:ModalPdfService,
+              private pdfUploadService:PdfUploadService,
+              private router:Router ) { }
 
   ngOnDestroy(): void {
     this.imgSubs.unsubscribe()
@@ -35,6 +44,7 @@ export class PublicacionesComponent implements OnInit, OnDestroy {
     this.imgSubs = this.imgSubs = this.modalImagenService.nuevaImagen
       .pipe(delay(100))
       .subscribe( img => this.cargarPublicaciones() );
+
   }
 
   cargarPublicaciones() {
@@ -43,6 +53,7 @@ export class PublicacionesComponent implements OnInit, OnDestroy {
       .subscribe( publicaciones => {
         this.cargando = false;
         this.publicaciones = publicaciones;
+        console.log(this.publicaciones)
       });
   }
 
@@ -59,7 +70,7 @@ export class PublicacionesComponent implements OnInit, OnDestroy {
   }
 
   abrirModal(publicacion: Publicacion) {
-
+    console.log(publicacion.img)
     this.modalImagenService.abrirModal( 'publicaciones', publicacion._id, publicacion.img );
 
   }
@@ -91,5 +102,23 @@ export class PublicacionesComponent implements OnInit, OnDestroy {
     })
 
   }
+  abrirModalPdf(publicacion: Publicacion) {
+    console.log(publicacion.articulo)
+    this.modalPdfService.abrirModal( 'publicaciones', publicacion._id, publicacion.articulo );
 
+  }
+  esunNoPdf(ruta:string):boolean{
+
+    let rutaAux = (ruta.split('/')[ruta.split('/').length-1])
+    if(rutaAux === 'no-pdf'){
+      return true
+    }else{
+      return false;
+    }
+
+  }
+  mostrarArchivo(linkRuta:string){
+    console.log(linkRuta)
+    this.pdfUploadService.devolver(linkRuta)
+  }
 }

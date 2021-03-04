@@ -83,11 +83,21 @@
                                         data-toggle="tooltip"
                                         data-original-title="Ver Publicación">
                                         <i class="fa fa-book text-inverse m-r-10"></i>
-                                        Ver contenido
-                                    </a>
+                                        Ver descripcion
+
+                                  </a>
+
+
                                 </td>
-                                <td>
-                                  test
+                                <td class="text-center">
+                                  <input #inputV type="hidden" value="{{publicacion.articulo | archivo:'publicaciones'}}">
+                                  <div *ngIf="esunNoPdf(inputV.value) else mostrardescarga">
+                                    <button class="btn btn-danger" (click)="abrirModalPdf(publicacion)">AGREGAR PDF</button>
+                                  </div>
+                                  <ng-template #mostrardescarga>
+                                    <button (click)="mostrarArchivo(inputV.value)" class="btn btn-danger">DESCARGAR</button>
+                                  </ng-template>
+
                                 </td>
                                 <td class="text-nowrap text-center">
                                     <a [routerLink]="['/dashboard','publicacion', publicacion._id ]"

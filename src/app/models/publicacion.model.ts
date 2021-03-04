@@ -15,7 +15,8 @@ export class Publicacion {
         public img?: string,
         public usuario?: _PublicacionUser,
         public tema?: Tema,
-        public contenido?:string
+        public contenido?:string,
+        public articulo?:string
     ) {}
 
 }

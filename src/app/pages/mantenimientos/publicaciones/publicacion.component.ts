@@ -6,9 +6,11 @@ import Swal from 'sweetalert2';
 import { Tema } from '../../../models/tema.model';
 import { Publicacion } from '../../../models/publicacion.model';
 
-import { TemaService } from '../../../services/tema.service.';
+import { TemaService } from '../../../services/tema.service';
 import { PublicacionService } from '../../../services/publicacion.service';
 import { delay } from 'rxjs/operators';
+
+
 
 @Component({
   selector: 'app-publicacion',
@@ -23,8 +25,8 @@ export class PublicacionComponent implements OnInit {
 
   public publicacionSeleccionado: Publicacion;
   public temaSeleccionado: Tema;
-
-
+  public pdfSubir: File;
+  public pdfTemp: any = null;
 
   constructor( private fb: FormBuilder,
                private temaService: TemaService,
@@ -33,14 +35,15 @@ export class PublicacionComponent implements OnInit {
                private activatedRoute: ActivatedRoute ) { }
 
   ngOnInit(): void {
-
+    console.log(this.publicacionSeleccionado)
     this.activatedRoute.params
         .subscribe( ({ id }) => this.cargarPublicacion( id ) );
 
     this.publicacionForm = this.fb.group({
       nombre: ['', Validators.required ],
       tema: ['', Validators.required ],
-      contenido:['',Validators.required]
+      contenido:['',Validators.required],
+
     });
 
     this.cargarTemas();
@@ -104,6 +107,7 @@ export class PublicacionComponent implements OnInit {
       this.publicacionService.crearPublicacion( this.publicacionForm.value )
           .subscribe( (resp: any) => {
             Swal.fire('Creado', `${ nombre } creado correctamente`, 'success');
+
             this.router.navigateByUrl(`/dashboard/publicacion/${ resp.publicacion._id }`)
         })
     }
@@ -111,5 +115,8 @@ export class PublicacionComponent implements OnInit {
 
 
   }
+
+
+
 
 }

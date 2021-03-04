@@ -6,7 +6,7 @@ import Swal from 'sweetalert2';
 import { Tema } from '../../../models/tema.model';
 
 import { BusquedasService } from '../../../services/busquedas.service';
-import { TemaService } from '../../../services/tema.service.';
+import { TemaService } from '../../../services/tema.service';
 import { ModalImagenService } from '../../../services/modal-imagen.service';
 
 @Component({

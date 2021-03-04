@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 import { Router, ActivatedRoute } from '@angular/router';
 import { delay } from 'rxjs/operators';
 import { Publicacion } from 'src/app/models/publicacion.model';
@@ -20,7 +21,8 @@ export class VerPublicacionComponent implements OnInit {
   constructor(
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private publicacionService:PublicacionService
+    private publicacionService:PublicacionService,
+    private _location: Location
   ) { }
 
   ngOnInit(): void {
@@ -39,6 +41,9 @@ export class VerPublicacionComponent implements OnInit {
         this.imagenPublicacion = `${this.uri_publicacion}${publicacion.img}`
         this.autorPublicacion = publicacion.usuario.nombre
       })
+  }
+  goBack(){
+    this._location.back();
   }
 }
 
