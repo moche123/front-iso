@@ -8,7 +8,7 @@
                 <h4 class="card-title">Mi perfil de usuario</h4>
                 <h6 class="card-subtitle">Ajustes</h6>
 
-                <form class="form p-t-20" 
+                <form class="form p-t-20"
                         [formGroup]="perfilForm"
                         (submit)="actualizarPerfil()">
 
@@ -27,16 +27,31 @@
                         <label for="exampleInputEmail1">Email address</label>
                         <div class="input-group">
                             <div class="input-group-addon"><i class="ti-email"></i></div>
-                            <input type="email" 
-                                    class="form-control" 
-                                    id="exampleInputEmail1" 
+                            <input type="email"
+                                    class="form-control"
+                                    id="exampleInputEmail1"
                                     placeholder="Email"
                                     formControlName="email"
                                     [readOnly]="usuario.google">
                         </div>
                     </div>
-                    
-                    <button type="submit" 
+                    <div class="form-group row">
+                      <label for="exampleInputText3" class="col-sm-3 control-label">Escuela</label>
+                      <div class="col-sm-9">
+                          <div class="input-group">
+                              <select class="form-control"
+                                      formControlName="escuela">
+                                  <option *ngFor="let escuela of escuelas"
+                                      [value]="escuela" selected>
+                                      {{ escuela }}
+                                  </option>
+                              </select>
+
+                          </div>
+                          <p><b>Actual: {{escuelaSeleccionado}}</b></p>
+                      </div>
+                    </div>
+                    <button type="submit"
                             class="btn btn-success btn-block waves-effect waves-light m-r-10"
                             [disabled]="perfilForm.invalid">
                         <i class="fa fa-save"></i>

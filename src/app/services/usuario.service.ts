@@ -25,7 +25,7 @@ export class UsuarioService {
   public auth2: any;
   public usuario: Usuario;
 
-  constructor( private http: HttpClient, 
+  constructor( private http: HttpClient,
                 private router: Router,
                 private ngZone: NgZone ) {
 
@@ -88,16 +88,16 @@ export class UsuarioService {
   }
 
   validarToken(): Observable<boolean> {
-    
+
     return this.http.get(`${ base_url }/login/renew`, {
       headers: {
         'x-token': this.token
       }
     }).pipe(
       map( (resp: any) => {
-        const { email, google, nombre, role, img = '', uid } = resp.usuario;
-        this.usuario = new Usuario( nombre, email, '', img, google, role, uid );
-        
+        const { email, google, nombre, role, img = '', uid, escuela } = resp.usuario;
+        this.usuario = new Usuario( nombre, email, '', img, google, role, uid,escuela );
+
         this.guardarLocalStorage( resp.token, resp.menu );
 
         return true;
@@ -109,7 +109,7 @@ export class UsuarioService {
 
 
   crearUsuario( formData: RegisterForm ) {
-    
+
     return this.http.post(`${ base_url }/usuarios`, formData )
               .pipe(
                 tap( (resp: any) => {
@@ -119,7 +119,7 @@ export class UsuarioService {
 
   }
 
-  actualizarPerfil( data: { email: string, nombre: string, role: string } ) {
+  actualizarPerfil( data: { email: string, nombre: string, escuela: string, role: string } ) {
 
     data = {
       ...data,
@@ -131,7 +131,7 @@ export class UsuarioService {
   }
 
   login( formData: LoginForm ) {
-    
+
     return this.http.post(`${ base_url }/login`, formData )
                 .pipe(
                   tap( (resp: any) => {
@@ -142,7 +142,7 @@ export class UsuarioService {
   }
 
   loginGoogle( token ) {
-    
+
     return this.http.post(`${ base_url }/login/google`, { token } )
                 .pipe(
                   tap( (resp: any) => {
@@ -152,15 +152,15 @@ export class UsuarioService {
 
   }
 
-  
+
   cargarUsuarios( desde: number = 0 ) {
 
     const url = `${ base_url }/usuarios?desde=${ desde }`;
     return this.http.get<CargarUsuario>( url, this.headers )
             .pipe(
               map( resp => {
-                const usuarios = resp.usuarios.map( 
-                  user => new Usuario(user.nombre, user.email, '', user.img, user.google, user.role, user.uid )  
+                const usuarios = resp.usuarios.map(
+                  user => new Usuario(user.nombre, user.email, '', user.img, user.google, user.role, user.uid, user.escuela )
                 );
                 return {
                   total: resp.total,
@@ -172,7 +172,7 @@ export class UsuarioService {
 
 
   eliminarUsuario( usuario: Usuario ) {
-    
+
       // /usuarios/5eff3c5054f5efec174e9c84
       const url = `${ base_url }/usuarios/${ usuario.uid }`;
       return this.http.delete( url, this.headers );

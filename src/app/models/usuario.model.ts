@@ -12,6 +12,7 @@ export class Usuario {
         public google?: boolean,
         public role?: 'ADMIN_ROLE' | 'USER_ROLE',
         public uid?: string,
+        public escuela?: string
     ) {}
 
     get imagenUrl() {

@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
     this.usuarioService.login( this.loginForm.value )
       .subscribe( resp => {
 
-        if ( this.loginForm.get('remember').value ){ 
+        if ( this.loginForm.get('remember').value ){
           localStorage.setItem('email', this.loginForm.get('email').value );
         } else {
           localStorage.removeItem('email');
@@ -53,7 +53,7 @@ export class LoginComponent implements OnInit {
       });
 
   }
-  
+
   renderButton() {
     gapi.signin2.render('my-signin2', {
       'scope': 'profile email',
@@ -68,23 +68,23 @@ export class LoginComponent implements OnInit {
   }
 
   async startApp() {
-    
+
     await this.usuarioService.googleInit();
     this.auth2 = this.usuarioService.auth2;
 
     this.attachSignin( document.getElementById('my-signin2') );
-    
+
   };
 
   attachSignin(element) {
-    
+
     this.auth2.attachClickHandler( element, {},
         (googleUser) => {
             const id_token = googleUser.getAuthResponse().id_token;
             // console.log(id_token);
             this.usuarioService.loginGoogle( id_token )
               .subscribe( resp => {
-                // Navegar al Dashboard
+
                 this.ngZone.run( () => {
                   this.router.navigateByUrl('/');
                 })

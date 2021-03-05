@@ -6,6 +6,8 @@ import { UsuarioService } from '../../services/usuario.service';
 import { FileUploadService } from '../../services/file-upload.service';
 
 import { Usuario } from '../../models/usuario.model';
+import { EscuelaService } from '../../services/escuela.service';
+
 
 @Component({
   selector: 'app-perfil',
@@ -19,12 +21,18 @@ export class PerfilComponent implements OnInit {
   public usuario: Usuario;
   public imagenSubir: File;
   public imgTemp: any = null;
+  public escuelas = [];
+  public escuelaSeleccionado:string;
+
 
   constructor( private fb: FormBuilder,
                private usuarioService: UsuarioService,
-               private fileUploadService: FileUploadService) {
-    
+               private fileUploadService: FileUploadService,
+               private escuelaService:EscuelaService) {
+
     this.usuario = usuarioService.usuario;
+    this.escuelaSeleccionado = this.usuario.escuela
+
   }
 
   ngOnInit(): void {
@@ -32,17 +40,26 @@ export class PerfilComponent implements OnInit {
     this.perfilForm = this.fb.group({
       nombre: [ this.usuario.nombre , Validators.required ],
       email: [ this.usuario.email, [ Validators.required, Validators.email ] ],
+      escuela: ['', Validators.required ],
     });
+    this.cargarEscuelas();
+  }
+  cargarEscuelas(){
+
+    this.escuelaService.cargarEscuelas()
+    .subscribe( (escue:string[]) => {
+
+      this.escuelas = escue;
+    },err => console.log(err))
 
   }
-
   actualizarPerfil() {
     this.usuarioService.actualizarPerfil( this.perfilForm.value )
         .subscribe( () => {
-          const { nombre, email } = this.perfilForm.value;
+          const { nombre, email,escuela } = this.perfilForm.value;
           this.usuario.nombre = nombre;
           this.usuario.email = email;
-
+          this.usuario.escuela = escuela;
           Swal.fire('Guardado', 'Cambios fueron guardados', 'success');
         }, (err) => {
           Swal.fire('Error', err.error.msg, 'error');
@@ -53,7 +70,7 @@ export class PerfilComponent implements OnInit {
   cambiarImagen( file: File ) {
     this.imagenSubir = file;
 
-    if ( !file ) { 
+    if ( !file ) {
       return this.imgTemp = null;
     }
 
