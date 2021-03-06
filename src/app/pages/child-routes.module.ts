@@ -20,7 +20,7 @@ import { VerPublicacionComponent } from './mantenimientos/publicaciones/ver-publ
 
 
 const childRoutes: Routes = [
-  { path: '', component: DashboardComponent, data: { titulo: 'Dashboard' } },
+  { path: '', component: DashboardComponent, data: { titulo: 'Tablero' } },
   { path: 'account-settings', component: AccountSettingsComponent, data: { titulo: 'Ajustes de cuenta' }},
   { path: 'buscar/:termino', component: BusquedaComponent, data: { titulo: 'Busquedas' }},
   { path: 'grafica1', component: Grafica1Component, data: { titulo: 'Gráfica #1' }},
