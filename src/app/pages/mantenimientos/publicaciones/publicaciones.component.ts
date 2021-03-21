@@ -12,6 +12,11 @@ import { ModalPdfService } from '../../../services/modal-pdf.service';
 
 import { PdfUploadService } from 'src/app/services/pdf-upload.service';
 import { Router } from '@angular/router';
+import { UsuarioService } from 'src/app/services/usuario.service';
+import { Tema } from 'src/app/models/tema.model';
+import { TemaService } from 'src/app/services/tema.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+
 
 
 @Component({
@@ -25,28 +30,63 @@ export class PublicacionesComponent implements OnInit, OnDestroy {
   public cargando: boolean = true;
   public publicaciones: Publicacion[] = [];
   private imgSubs: Subscription;
-
+  public temas: Tema[] = [];
+  public publicacionForm: FormGroup;
+  public temaSeleccionado: Tema;
 
   constructor( private publicacionService: PublicacionService,
                private modalImagenService: ModalImagenService,
                private busquedasService: BusquedasService,
               private modalPdfService:ModalPdfService,
               private pdfUploadService:PdfUploadService,
-              private router:Router ) { }
+              private router:Router,
+              private temaService: TemaService,
+              private fb: FormBuilder,
+              private usuarioService:UsuarioService ) { }
 
   ngOnDestroy(): void {
     this.imgSubs.unsubscribe()
   }
-
+  guardarPublicacion(){
+    console.log('hola')
+  }
   ngOnInit(): void {
     this.cargarPublicaciones();
 
     this.imgSubs = this.imgSubs = this.modalImagenService.nuevaImagen
       .pipe(delay(100))
       .subscribe( img => this.cargarPublicaciones() );
+    this.publicacionForm = this.fb.group({
+
+        tema: ['', Validators.required ],
+
+
+      });
+    this.cargarTemas();
+    this.publicacionForm.get('tema').valueChanges
+    .subscribe( async temaId => {
+          this.temaSeleccionado = await this.temas.find( h => h._id === temaId );
+          this.filtrarTema(this.temaSeleccionado);
+    })
+  }
+  filtrarTema(temaSeleccionado:Tema){
+    if(temaSeleccionado == null){
+      return this.cargarPublicaciones()
+    }
+    this.busquedasService.filtrarTema(temaSeleccionado).subscribe(
+      (e:any) => {
+        this.publicaciones = e.resultado
+      }
+    )
+  }
+  cargarTemas() {
+
+    this.temaService.cargarTemas()
+      .subscribe( (temas: Tema[]) => {
+        this.temas = temas;
+      })
 
   }
-
   cargarPublicaciones() {
     this.cargando = true;
     this.publicacionService.cargarPublicaciones()
@@ -120,5 +160,12 @@ export class PublicacionesComponent implements OnInit, OnDestroy {
   mostrarArchivo(linkRuta:string){
     console.log(linkRuta)
     this.pdfUploadService.devolver(linkRuta)
+  }
+  owner(publicacion:Publicacion){
+    if(this.usuarioService.usuario.uid == publicacion.usuario._id){
+      return true
+    }
+    return false
+
   }
 }

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Color } from 'ng2-charts';
 
 
 
@@ -9,8 +10,8 @@ import { Component } from '@angular/core';
   ]
 })
 export class Grafica1Component {
-
-  public labels1: string[] = ['Pan', 'Refresco', 'Tacos'];
+  public  titulo = "Cantidad de publicaciones por escuela"
+  public labels1: string[] = ['EPM', 'EPF', 'EPICI'];
   public data1 = [
     [10, 15, 40],
   ];

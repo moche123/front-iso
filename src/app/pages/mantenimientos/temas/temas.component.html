@@ -45,10 +45,10 @@
 
                     <div class="col">
                         <div class="text-right">
-                            <button class="btn btn-primary"
+                            <button class="btn btn-info"
                                     (click)="abrirSweetAlert()">
-                                <i class="fa fa-hospital-o"></i>
-                                Crear Tema
+
+                                Nuevo Tema
                             </button>
                         </div>
                     </div>
@@ -61,7 +61,7 @@
 
 
                 <div class="table-responsive">
-                    <table class="table table-bordered">
+                    <table class="table">
                         <thead>
                             <tr>
                                 <th class="w100">Foto</th>
@@ -71,20 +71,20 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let tema of temas">
-                                <td class="text-center">
+                                <td class="text-center align-middle">
                                     <img [src]="tema.img | imagen:'temas'"
                                         [alt]="tema.nombre"
                                         class="w100 cursor"
                                         (click)="abrirModal(tema)">
                                 </td>
-                                <td>
+                                <td class="align-middle">
                                     <input type="text"
                                             class="form-control"
                                             placeholder="Nombre del tema"
                                             [(ngModel)]="tema.nombre" />
                                 </td>
 
-                                <td class="text-nowrap text-center">
+                                <td class="text-nowrap text-center align-middle" *ngIf="owner(tema)">
                                     <a (click)="guardarCambios(tema)"
                                         data-toggle="tooltip"
                                         class="cursor"
@@ -96,7 +96,7 @@
                                         data-toggle="tooltip"
                                         data-original-title="Borrar"
                                         class="cursor">
-                                        <i class="fa fa-close text-danger"></i>
+                                        <i class="fa fa-trash text-danger"></i>
                                     </a>
                                 </td>
                             </tr>

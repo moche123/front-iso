@@ -8,6 +8,10 @@ import { Tema } from '../../../models/tema.model';
 import { BusquedasService } from '../../../services/busquedas.service';
 import { TemaService } from '../../../services/tema.service';
 import { ModalImagenService } from '../../../services/modal-imagen.service';
+import { UsuarioService } from 'src/app/services/usuario.service';
+
+
+
 
 @Component({
   selector: 'app-temas',
@@ -23,7 +27,8 @@ export class TemasComponent implements OnInit, OnDestroy {
 
   constructor( private temaService: TemaService,
                private modalImagenService: ModalImagenService,
-               private busquedasService: BusquedasService ) { }
+               private busquedasService: BusquedasService,
+               private usuarioService: UsuarioService ) { }
 
   ngOnDestroy(): void {
     this.imgSubs.unsubscribe();
@@ -118,5 +123,11 @@ export class TemasComponent implements OnInit, OnDestroy {
     this.modalImagenService.abrirModal( 'temas', tema._id, tema.img );
 
   }
+  owner(tema:Tema){
+    if(this.usuarioService.usuario.uid == tema.usuario._id){
+      return true
+    }
+    return false
 
+  }
 }

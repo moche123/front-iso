@@ -23,7 +23,7 @@ const childRoutes: Routes = [
   { path: '', component: DashboardComponent, data: { titulo: 'Tablero' } },
   { path: 'account-settings', component: AccountSettingsComponent, data: { titulo: 'Ajustes de cuenta' }},
   { path: 'buscar/:termino', component: BusquedaComponent, data: { titulo: 'Busquedas' }},
-  { path: 'grafica1', component: Grafica1Component, data: { titulo: 'Gráfica #1' }},
+  { path: 'grafica1', component: Grafica1Component, data: { titulo: 'Reporte' }},
   { path: 'perfil', component: PerfilComponent, data: { titulo: 'Perfil de usuario' }},
   { path: 'progress', component: ProgressComponent, data: { titulo: 'ProgressBar' }},
   { path: 'promesas', component: PromesasComponent, data: { titulo: 'Promesas' }},

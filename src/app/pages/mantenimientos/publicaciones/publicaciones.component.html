@@ -36,19 +36,42 @@
 
 
                 <div class="row">
-                    <div class="col-8">
+                    <div class="col-6 ">
                         <h4 class="card-title">Publicaciones ({{ publicaciones.length }})</h4>
                         <h6 class="card-subtitle">
-                            Publicaciones registrados en mi aplicación
+                            Publicaciones Registradas hasta el momento
                         </h6>
                     </div>
+                    <div class="col align-middle">
 
-                    <div class="col">
+                      <div class="input-group">
+                        <label for="exampleInputText3">Tema</label> &nbsp;
+                        <form class="form-horizontal"
+                        [formGroup]="publicacionForm"
+
+                        >
+                          <select
+                                  formControlName="tema">
+                              <!-- <option value="temas[0]._id">{{temas[0].nombre}}</option> -->
+                              <option value="" disabled selected>Selecciona</option>
+                              <option *ngFor="let tema of temas"
+                                  [value]="tema._id" selected>
+                                  {{ tema.nombre }}
+                              </option>
+                          </select>
+                        </form>
+
+                      </div>
+
+
+                    </div>
+                    <div class="col ">
                         <div class="text-right">
-                            <a class="btn btn-primary"
+
+                            <a class="btn btn-info"
                                routerLink="/dashboard/publicacion/nuevo">
-                                <i class="fa fa-hospital-o"></i>
-                                Crear publicacion
+
+                                Nueva publicación
                             </a>
                         </div>
                     </div>
@@ -58,27 +81,27 @@
 
 
                 <div class="table-responsive">
-                    <table class="table table-bordered">
+                    <table class="table  mt-2">
                         <thead>
                             <tr>
                                 <th class="w100">Foto</th>
                                 <th>Nombre</th>
                                 <th>Contenido</th>
-                                <th class="w100 text-nowrap">Acciones</th>
+                                <th class="w100 text-nowrap" colspan="2">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let publicacion of publicaciones">
-                                <td class="text-center">
+                                <td class="text-center align-middle">
                                     <img [src]="publicacion.img | imagen:'publicaciones'"
                                         [alt]="publicacion.nombre"
                                         class="w100 cursor"
                                         (click)="abrirModal(publicacion)">
                                 </td>
-                                <td>
+                                <td class="align-middle">
                                     {{ publicacion.nombre }}
                                 </td>
-                                <td>
+                                <td class="align-middle">
                                   <a [routerLink]="['/dashboard','publicacion', 'ver',publicacion._id ]"
                                         data-toggle="tooltip"
                                         data-original-title="Ver Publicación">
@@ -89,17 +112,28 @@
 
 
                                 </td>
-                                <td class="text-center">
+                                <td class=" align-middle">
                                   <input #inputV type="hidden" value="{{publicacion.articulo | archivo:'publicaciones'}}">
                                   <div *ngIf="esunNoPdf(inputV.value) else mostrardescarga">
-                                    <button class="btn btn-danger" (click)="abrirModalPdf(publicacion)">AGREGAR PDF</button>
+                                    <div  *ngIf="owner(publicacion) else nopublicado">
+                                      <button class="btn btn-danger" (click)="abrirModalPdf(publicacion)"> AGREGAR PDF</button>
+                                    </div>
+
                                   </div>
+                                  <ng-template #nopublicado>
+                                    <td>
+                                      Aún no publicado
+                                    </td>
+
+                                  </ng-template>
                                   <ng-template #mostrardescarga>
+
                                     <button (click)="mostrarArchivo(inputV.value)" class="btn btn-danger">DESCARGAR</button>
                                   </ng-template>
 
                                 </td>
-                                <td class="text-nowrap text-center">
+
+                                <td class="text-nowrap align-middle"  *ngIf="owner(publicacion)">
                                     <a [routerLink]="['/dashboard','publicacion', publicacion._id ]"
                                         data-toggle="tooltip"
                                         data-original-title="Editar">
@@ -110,7 +144,7 @@
                                         data-toggle="tooltip"
                                         data-original-title="Borrar"
                                         (click)="borrarPublicacion( publicacion )">
-                                        <i class="fa fa-close text-danger"></i>
+                                        <i class="fa fa-trash text-danger"></i>
                                     </a>
                                 </td>
                             </tr>

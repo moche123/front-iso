@@ -80,6 +80,10 @@ export class BusquedasService {
             );
 
   }
+ filtrarTema(tema:Tema){
 
+   const url = `${ base_url }/publicaciones/tema/${ tema.nombre }`;
+   return this.http.get(url)
+ }
 
 }
