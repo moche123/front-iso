@@ -1,0 +1,103 @@
+<div class="row animated fadeIn fast">
+  <div class="col-12">
+      <div class="card">
+          <div class="card-body">
+
+              <input type="text"
+                      class="form-control"
+                      placeholder="Buscar articulo aprobado..."
+                      #txtTermino
+                      (keyup)="buscar( txtTermino.value )"/>
+
+          </div>
+      </div>
+  </div>
+</div>
+
+<div class="row animated fadeIn fast"
+    *ngIf="cargando">
+    <div class="col-12">
+
+        <div class="alert alert-info text-center">
+          <h4 class="alert-heading">Cargando</h4>
+          <i class="fa fa-spin fa-refresh fa-2x"></i>
+          <p class="mb-0">Por favor espere</p>
+        </div>
+
+    </div>
+</div>
+
+ <div class="row"
+    *ngIf="!cargando">
+
+    <div class="col-12">
+        <div class="card">
+            <div class="card-body">
+
+                <div class="row">
+                    <div class="col-8">
+                        <h4 class="card-title">Articulos ({{ listArticulos.length }})</h4>
+                        <h6 class="card-subtitle">
+                            Temas registrados en mi aplicación
+                        </h6>
+                    </div>
+
+                    <div class="col"  *ngIf="usuario.role == 'ADMIN_ROLE'">
+                        <div class="text-right">
+                            <button class="btn btn-info"
+                                    (click)="abrirSweetAlert()">
+
+                                Nuevo Articulo Aprobado
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th class="w100">Nombre</th>
+                                <th class="w100 text-nowrap text-center">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let articulo of listArticulos">
+
+                                <td class="align-middle">
+                                    <input type="text"
+                                            class="form-control"
+                                            placeholder="Nombre del tema"
+                                            disabled
+                                            [(ngModel)]="articulo.nombre" *ngIf="usuario.role=='ADMIN_ROLE'"/>
+
+                                </td>
+
+                                <td class="text-nowrap text-center align-middle" *ngIf="usuario.role=='ADMIN_ROLE'">
+
+
+                                    <a (click)="eliminarTema(articulo)"
+                                        data-toggle="tooltip"
+                                        data-original-title="Borrar"
+                                        class="cursor">
+                                        <i class="fa fa-trash text-danger"></i>
+                                    </a>
+                                </td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- <div *ngFor="let articulo of listArticulos">
+  {{articulo.nombre}}
+</div> -->

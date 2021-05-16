@@ -17,7 +17,7 @@ import { PublicacionComponent } from './mantenimientos/publicaciones/publicacion
 import { BusquedaComponent } from './busqueda/busqueda.component';
 import { AdminGuard } from '../guards/admin.guard';
 import { VerPublicacionComponent } from './mantenimientos/publicaciones/ver-publicacion.component';
-
+import { ArticulosAprobadosComponent } from './mantenimientos/articulos-aprobados/articulos-aprobados.component'
 
 const childRoutes: Routes = [
   { path: '', component: DashboardComponent, data: { titulo: 'Tablero' } },
@@ -30,13 +30,14 @@ const childRoutes: Routes = [
   { path: 'rxjs', component: RxjsComponent, data: { titulo: 'RxJs' }},
 
   // Mantenimientos
-  { path: 'temas', component: TemasComponent, data: { titulo: 'Matenimiento de Temas' }},
-  { path: 'publicaciones', component: PublicacionesComponent, data: { titulo: 'Matenimiento de Publicaciones' }},
-  { path: 'publicacion/:id', component: PublicacionComponent, data: { titulo: 'Matenimiento de Publicaciones' }},
+  { path: 'temas', component: TemasComponent, data: { titulo: 'Vista de Temas' }},
+  { path: 'publicaciones', component: PublicacionesComponent, data: { titulo: 'Vista de Publicaciones' }},
+  { path: 'publicacion/:id', component: PublicacionComponent, data: { titulo: 'Vista de Publicaciones' }},
   { path: 'publicacion/ver/:id', component: VerPublicacionComponent, data: { titulo: 'Observación de las Publicaciones' }},
 
   // Rutas de Admin
   { path: 'usuarios', canActivate: [ AdminGuard ], component: UsuariosComponent, data: { titulo: 'Matenimiento de Usuarios' }},
+  { path: 'articulosaprobados', canActivate: [ AdminGuard ],component:ArticulosAprobadosComponent, data:{titulo: 'Mantinimiento de artículos aprobados'}  }
 ]
 
 

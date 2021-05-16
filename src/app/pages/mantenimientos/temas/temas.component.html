@@ -7,7 +7,7 @@
                         class="form-control"
                         placeholder="Buscar tema..."
                         #txtTermino
-                        (keyup)="buscar(txtTermino.value)"/>
+                        (keyup)="buscar(txtTermino.value)" />
 
             </div>
         </div>
@@ -43,7 +43,7 @@
                         </h6>
                     </div>
 
-                    <div class="col">
+                    <div class="col"  *ngIf="usuario.role == 'ADMIN_ROLE'">
                         <div class="text-right">
                             <button class="btn btn-info"
                                     (click)="abrirSweetAlert()">
@@ -75,16 +75,25 @@
                                     <img [src]="tema.img | imagen:'temas'"
                                         [alt]="tema.nombre"
                                         class="w100 cursor"
-                                        (click)="abrirModal(tema)">
+                                        (click)="abrirModal(tema)" *ngIf="usuario.role =='ADMIN_ROLE'">
+                                      <img [src]="tema.img | imagen:'temas'"
+                                        [alt]="tema.nombre"
+                                        class="w100 cursor"
+                                        *ngIf="usuario.role !='ADMIN_ROLE'">
                                 </td>
                                 <td class="align-middle">
                                     <input type="text"
                                             class="form-control"
                                             placeholder="Nombre del tema"
-                                            [(ngModel)]="tema.nombre" />
+                                            [(ngModel)]="tema.nombre" *ngIf="usuario.role=='ADMIN_ROLE'"/>
+                                    <input type="text"
+                                            class="form-control"
+                                            placeholder="Nombre del tema"
+                                            disabled
+                                            [(ngModel)]="tema.nombre" *ngIf="usuario.role !='ADMIN_ROLE'"/>
                                 </td>
 
-                                <td class="text-nowrap text-center align-middle" *ngIf="owner(tema)">
+                                <td class="text-nowrap text-center align-middle" *ngIf="usuario.role=='ADMIN_ROLE'">
                                     <a (click)="guardarCambios(tema)"
                                         data-toggle="tooltip"
                                         class="cursor"

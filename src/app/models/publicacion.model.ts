@@ -4,6 +4,7 @@ interface _PublicacionUser {
     _id: string;
     nombre: string;
     img: string;
+    email: string;
 }
 
 
@@ -16,7 +17,9 @@ export class Publicacion {
         public usuario?: _PublicacionUser,
         public tema?: Tema,
         public contenido?:string,
-        public articulo?:string
+        public articulo?:string,
+        public habilitado?:boolean,
+        public caa?:string
     ) {}
 
 }

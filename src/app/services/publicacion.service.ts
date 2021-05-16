@@ -46,7 +46,7 @@ export class PublicacionService {
               );
   }
 
-  crearPublicacion( publicacion: { nombre: string, hospital: string } ) {
+  crearPublicacion( publicacion: { nombre: string, tema: string } ) {
 
     const url = `${ base_url }/publicaciones`;
     return this.http.post( url, publicacion, this.headers );
@@ -62,6 +62,10 @@ export class PublicacionService {
 
     const url = `${ base_url }/publicaciones/${ _id }`;
     return this.http.delete( url, this.headers );
+  }
+  verificarArticuloAprobado( texto:string ){
+    const url = `${ base_url }/publicaciones/articuloaprobadoid/${ texto }`;
+    return this.http.get(url, this.headers)
   }
 
 }

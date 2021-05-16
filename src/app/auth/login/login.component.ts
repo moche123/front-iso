@@ -34,7 +34,12 @@ export class LoginComponent implements OnInit {
 
 
   login() {
-
+    //console.log(this.loginForm.value);
+    if(this.loginForm.value.email.length<=0
+      && this.loginForm.value.password.length<=0 ) {
+      Swal.fire('Atento','Llene todos los campos del formulario' , 'warning' );
+      return;
+    }
     this.usuarioService.login( this.loginForm.value )
       .subscribe( resp => {
 
@@ -53,7 +58,13 @@ export class LoginComponent implements OnInit {
       });
 
   }
-
+  entrarVisitante(){
+    this.loginForm.value.email = 'persona@hotmail.com';
+    this.loginForm.value.password = '654321';
+    this.loginForm.value.remember = false;
+    console.log(this.loginForm);
+    this.login();
+  }
   renderButton() {
     gapi.signin2.render('my-signin2', {
       'scope': 'profile email',

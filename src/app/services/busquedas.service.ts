@@ -6,7 +6,7 @@ import { map } from 'rxjs/operators';
 import { Usuario } from '../models/usuario.model';
 import { Tema } from '../models/tema.model';
 import { Publicacion } from '../models/publicacion.model';
-
+import { ArticuloAprobado } from '../models/articuloaprobado.model';
 const base_url = environment.base_url;
 
 
@@ -44,6 +44,10 @@ export class BusquedasService {
     return resultados;
   }
 
+  private transformarArticulosAprobados( resultados: any[] ): ArticuloAprobado[] {
+    return resultados;
+  }
+
   busquedaGlobal( termino: string ) {
 
     const url = `${ base_url }/todo/${ termino }`;
@@ -53,7 +57,7 @@ export class BusquedasService {
 
 
   buscar(
-      tipo: 'usuarios'|'publicaciones'|'temas',
+      tipo: 'usuarios'|'publicaciones'|'temas'|'publicacionesaprobadas',
       termino: string
     ) {
 
@@ -71,6 +75,9 @@ export class BusquedasService {
 
                   case 'publicaciones':
                      return this.transformarPublicaciones( resp.resultados )
+
+                  case 'publicacionesaprobadas':
+                     return this.transformarArticulosAprobados(resp.resultados)
 
                   default:
                     return [];

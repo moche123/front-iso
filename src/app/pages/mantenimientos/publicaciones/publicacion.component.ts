@@ -8,7 +8,7 @@ import { Publicacion } from '../../../models/publicacion.model';
 
 import { TemaService } from '../../../services/tema.service';
 import { PublicacionService } from '../../../services/publicacion.service';
-import { delay } from 'rxjs/operators';
+import { debounceTime, delay, tap } from 'rxjs/operators';
 
 
 
@@ -27,6 +27,8 @@ export class PublicacionComponent implements OnInit {
   public temaSeleccionado: Tema;
   public pdfSubir: File;
   public pdfTemp: any = null;
+  public codigoCAA:boolean = true;
+  public mensajeEncontrado = '';
 
   constructor( private fb: FormBuilder,
                private temaService: TemaService,
@@ -35,6 +37,7 @@ export class PublicacionComponent implements OnInit {
                private activatedRoute: ActivatedRoute ) { }
 
   ngOnInit(): void {
+    this.codigoCAA = true;
     console.log(this.publicacionSeleccionado)
     this.activatedRoute.params
         .subscribe( ({ id }) => this.cargarPublicacion( id ) );
@@ -43,14 +46,14 @@ export class PublicacionComponent implements OnInit {
       nombre: ['', Validators.required ],
       tema: ['', Validators.required ],
       contenido:['',Validators.required],
-
+      caa:['',Validators.required]
     });
 
     this.cargarTemas();
 
     this.publicacionForm.get('tema').valueChanges
         .subscribe( temaId => {
-          this.temaSeleccionado = this.temas.find( h => h._id === temaId );
+          this.temaSeleccionado = this.temas.find( h => h._id === temaId && h.habilitado == true);
         })
   }
 
@@ -70,9 +73,9 @@ export class PublicacionComponent implements OnInit {
           return this.router.navigateByUrl(`/dashboard/publicaciones`);
         }
 
-        const { nombre, tema:{ _id }, contenido } = publicacion;
+        const { nombre, tema:{ _id }, contenido,caa } = publicacion;
         this.publicacionSeleccionado = publicacion;
-        this.publicacionForm.setValue({ nombre, tema: _id, contenido});
+        this.publicacionForm.setValue({ nombre, tema: _id, contenido, caa});
       },err=>console.log(err));
 
   }
@@ -81,7 +84,7 @@ export class PublicacionComponent implements OnInit {
 
     this.temaService.cargarTemas()
       .subscribe( (temas: Tema[]) => {
-        this.temas = temas;
+        this.temas = temas.filter(t => t.habilitado == true);
       })
 
   }
@@ -109,10 +112,33 @@ export class PublicacionComponent implements OnInit {
             Swal.fire('Creado', `${ nombre } creado correctamente`, 'success');
 
             this.router.navigateByUrl(`/dashboard/publicacion/${ resp.publicacion._id }`)
+        },err=>{
+            Swal.fire('Error', `Tema presenta errores al crearse`, 'error');
         })
     }
 
 
+
+  }
+  existeArticuloAprobado(event){
+    //console.log(event.target.value)
+    if(event.target.value.length>20){
+      this.publicacionService.verificarArticuloAprobado(event.target.value).
+      subscribe((e:any) =>{
+        console.log(e)
+        this.codigoCAA = true;
+        if(e.articulo){
+          this.mensajeEncontrado = 'Codigo encontrado'
+        }
+      },err =>{
+        console.log('no encontrado');
+        this.codigoCAA = false;
+        this.mensajeEncontrado = ''
+      })
+    }else{
+      this.codigoCAA = false;
+      this.mensajeEncontrado = ''
+    }
 
   }
 

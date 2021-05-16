@@ -1,1 +1,47 @@
-<p>El tablero funciona</p>
+<h1>BIENVENIDO, {{usuarioNombre}}</h1>
+
+
+
+<!-- <div *ngFor="let comentario of comentarios" class="mb-5">
+  <div class="row">
+
+    <div class="col-3">
+      <img [src]="comentario.usuario.img | imagen:'usuarios'" alt="" class="avatar cursor"> {{comentario.usuario.nombre}}
+    </div>
+    <div class="col-5">{{comentario.contenido}}</div>
+  </div>
+
+
+</div>
+
+
+<form class="form-horizontal p-t-20"
+[formGroup]="comentarioForm"
+(submit)="guardarComentario()">
+    <input type="hidden" formControlName="usuario">
+    <div class="form-group row">
+      <label for="exampleInputText3" class="col-sm-3 control-label">Redacte un comentario</label>
+      <div class="col-sm-9">
+          <div class="input-group">
+            <div class="input-group-addon"><i class="ti-book"></i></div>
+            <textarea type="text"
+                    formControlName="contenido"
+                    class="form-control"
+                    id="exampleInputText3"
+                    placeholder="Redacte...">
+            </textarea>
+          </div>
+      </div>
+    </div>
+    <div class="form-group row m-b-0">
+      <div class="offset-sm-3 col-sm-9">
+          <button type="submit"
+                  [disabled]="comentarioForm.invalid"
+                  class="btn btn-success waves-effect waves-light">
+              <i class="fa fa-save"></i>
+              Guardar
+          </button>
+      </div>
+  </div>
+
+</form> -->

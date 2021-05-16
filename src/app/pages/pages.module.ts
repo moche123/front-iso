@@ -23,6 +23,7 @@ import { PublicacionesComponent } from './mantenimientos/publicaciones/publicaci
 import { PublicacionComponent } from './mantenimientos/publicaciones/publicacion.component';
 import { BusquedaComponent } from './busqueda/busqueda.component';
 import {VerPublicacionComponent} from './mantenimientos/publicaciones/ver-publicacion.component';
+import { ArticulosAprobadosComponent } from './mantenimientos/articulos-aprobados/articulos-aprobados.component';
 
 
 
@@ -44,7 +45,8 @@ import {VerPublicacionComponent} from './mantenimientos/publicaciones/ver-public
     PublicacionesComponent,
     PublicacionComponent,
     BusquedaComponent,
-    VerPublicacionComponent
+    VerPublicacionComponent,
+    ArticulosAprobadosComponent
   ],
   exports: [
     DashboardComponent,

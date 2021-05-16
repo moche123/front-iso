@@ -1,6 +1,3 @@
-<!-- ============================================================== -->
-<!-- Main wrapper - style you can find in pages.scss -->
-<!-- ============================================================== -->
 <section id="wrapper" class="login-register login-sidebar" style="background-image:url(../assets/images/background/log-reg.png);">
     <div class="login-box card">
         <div class="card-body">
@@ -13,7 +10,7 @@
                <!--  <a href="javascript:void(0)" class="text-center db"><img src="../assets/images/logo-icon.png" alt="Home" /><br/><img src="../assets/images/logo-text.png" alt="Home" /></a> -->
 
                 <div class="form-group m-t-40">
-                  <h3 class="text-center"><b>¡ACCEDE CON TU CUENTA!</b></h3>
+                  <h3 class="text-center"><b>ACCESO DEL ADMINISTRADOR</b></h3>
                     <div class="col-xs-12">
                         <input class="form-control"
                                 type="email"
@@ -38,25 +35,28 @@
                                     formControlName="remember">
                             <label for="checkbox-signup"> Recuérdame </label>
                         </div>
-                        <a href="javascript:void(0)" id="to-recover" class="text-dark pull-right"><i class="fa fa-lock m-r-5"></i> Olvidó contraseña?</a> </div>
+                        <!-- <a href="javascript:void(0)" id="to-recover" class="text-dark pull-right"><i class="fa fa-lock m-r-5"></i> Olvidó contraseña?</a>--> </div>
                 </div>
                 <div class="form-group text-center m-t-20">
                     <div class="col-xs-12">
                         <button class="btn btn-info btn-lg btn-block text-uppercase" type="submit">Entrar</button>
                     </div>
                 </div>
+                <h3>Accede con tu cuenta UNPRG</h3>
                 <div class="row">
                     <div class="col-xs-12 col-sm-12 col-md-12 m-t-10 mb-4 text-center" id="google-btn">
 
                         <div id="my-signin2"></div>
 
                     </div>
+
                 </div>
-                <div class="form-group m-b-0">
+                <h5>Un vistazo?, accede como <button class="btn btn-primary" (click) ="entrarVisitante()">Visitante</button></h5>
+                <!-- <div class="form-group m-b-0">
                     <div class="col-sm-12 text-center">
                         No tienes una cuenta? <a routerLink="/register" class="text-primary m-l-5"><b>Regístrate</b></a>
                     </div>
-                </div>
+                </div> -->
             </form>
             <form class="form-horizontal" id="recoverform" action="index.html">
                 <div class="form-group ">
@@ -79,6 +79,3 @@
         </div>
     </div>
 </section>
-<!-- ============================================================== -->
-<!-- End Wrapper -->
-<!-- ============================================================== -->

@@ -9,6 +9,7 @@ import { BusquedasService } from '../../../services/busquedas.service';
 import { TemaService } from '../../../services/tema.service';
 import { ModalImagenService } from '../../../services/modal-imagen.service';
 import { UsuarioService } from 'src/app/services/usuario.service';
+import { Usuario } from 'src/app/models/usuario.model';
 
 
 
@@ -24,6 +25,7 @@ export class TemasComponent implements OnInit, OnDestroy {
   public temas: Tema[] = [];
   public cargando: boolean = true;
   private imgSubs: Subscription;
+  public usuario: Usuario;
 
   constructor( private temaService: TemaService,
                private modalImagenService: ModalImagenService,
@@ -35,6 +37,8 @@ export class TemasComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    this.usuario = this.usuarioService.usuario;
+    console.log(this.usuario)
     this.cargarTemas();
 
     this.imgSubs = this.imgSubs = this.modalImagenService.nuevaImagen
@@ -62,8 +66,8 @@ export class TemasComponent implements OnInit, OnDestroy {
     this.temaService.cargarTemas()
         .subscribe( temas => {
           this.cargando = false;
-          this.temas = temas;
-        })
+          this.temas = temas.filter(tem => tem.habilitado == true );
+    })
 
   }
 
@@ -113,14 +117,17 @@ export class TemasComponent implements OnInit, OnDestroy {
     if( value.trim().length > 0 ) {
       this.temaService.crearTema( value )
         .subscribe( (resp: any) => {
-          this.temas.push( resp.tema )
+          /* this.temas.push( resp.tema ) */
+          this.cargarTemas();
         })
     }
   }
 
   abrirModal(tema: Tema) {
+    if(this.usuario.email.split('@')[1] == 'unprg.edu.pe'){
+      this.modalImagenService.abrirModal( 'temas', tema._id, tema.img );
+    }
 
-    this.modalImagenService.abrirModal( 'temas', tema._id, tema.img );
 
   }
   owner(tema:Tema){

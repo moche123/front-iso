@@ -1,4 +1,6 @@
 import { Injectable } from '@angular/core';
+import { Usuario } from '../models/usuario.model';
+import { UsuarioService } from './usuario.service';
 
 @Injectable({
   providedIn: 'root'
@@ -6,9 +8,16 @@ import { Injectable } from '@angular/core';
 export class SidebarService {
 
   public menu = [];
-
   cargarMenu() {
+
+
     this.menu = JSON.parse(localStorage.getItem('menu')) || [];
+
+    this.menu[1].titulo = 'Vista';
+
+
+
+    console.log(this.menu)
   }
 
   // menu: any[] = [

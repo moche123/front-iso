@@ -2,6 +2,7 @@ interface _TemaUser {
     _id: string;
     nombre: string;
     img: string;
+    email:string;
 }
 
 
@@ -12,6 +13,7 @@ export class Tema {
         public _id?: string,
         public img?: string,
         public usuario?: _TemaUser,
+        public habilitado?:boolean
     ) {}
 
 }

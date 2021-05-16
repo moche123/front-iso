@@ -16,6 +16,7 @@ import { UsuarioService } from 'src/app/services/usuario.service';
 import { Tema } from 'src/app/models/tema.model';
 import { TemaService } from 'src/app/services/tema.service';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Usuario } from 'src/app/models/usuario.model';
 
 
 
@@ -33,6 +34,7 @@ export class PublicacionesComponent implements OnInit, OnDestroy {
   public temas: Tema[] = [];
   public publicacionForm: FormGroup;
   public temaSeleccionado: Tema;
+  public usuario:Usuario;
 
   constructor( private publicacionService: PublicacionService,
                private modalImagenService: ModalImagenService,
@@ -42,6 +44,7 @@ export class PublicacionesComponent implements OnInit, OnDestroy {
               private router:Router,
               private temaService: TemaService,
               private fb: FormBuilder,
+
               private usuarioService:UsuarioService ) { }
 
   ngOnDestroy(): void {
@@ -51,6 +54,8 @@ export class PublicacionesComponent implements OnInit, OnDestroy {
     console.log('hola')
   }
   ngOnInit(): void {
+    this.usuario = this.usuarioService.usuario;
+    console.log(this.usuario);
     this.cargarPublicaciones();
 
     this.imgSubs = this.imgSubs = this.modalImagenService.nuevaImagen
@@ -65,17 +70,19 @@ export class PublicacionesComponent implements OnInit, OnDestroy {
     this.cargarTemas();
     this.publicacionForm.get('tema').valueChanges
     .subscribe( async temaId => {
-          this.temaSeleccionado = await this.temas.find( h => h._id === temaId );
+          this.temaSeleccionado = await this.temas.find( h => h._id === temaId && h.habilitado == true);
           this.filtrarTema(this.temaSeleccionado);
     })
   }
   filtrarTema(temaSeleccionado:Tema){
-    if(temaSeleccionado == null){
+    console.log(temaSeleccionado)
+    if(temaSeleccionado == null || temaSeleccionado == undefined){
       return this.cargarPublicaciones()
     }
     this.busquedasService.filtrarTema(temaSeleccionado).subscribe(
       (e:any) => {
         this.publicaciones = e.resultado
+        console.log(this.publicaciones)
       }
     )
   }
@@ -83,7 +90,7 @@ export class PublicacionesComponent implements OnInit, OnDestroy {
 
     this.temaService.cargarTemas()
       .subscribe( (temas: Tema[]) => {
-        this.temas = temas;
+        this.temas = temas.filter(t  => t.habilitado== true);
       })
 
   }
@@ -92,8 +99,7 @@ export class PublicacionesComponent implements OnInit, OnDestroy {
     this.publicacionService.cargarPublicaciones()
       .subscribe( publicaciones => {
         this.cargando = false;
-        this.publicaciones = publicaciones;
-        console.log(this.publicaciones)
+        this.publicaciones = publicaciones.filter(pub => pub.habilitado == true);
       });
   }
 
@@ -111,7 +117,10 @@ export class PublicacionesComponent implements OnInit, OnDestroy {
 
   abrirModal(publicacion: Publicacion) {
     console.log(publicacion.img)
-    this.modalImagenService.abrirModal( 'publicaciones', publicacion._id, publicacion.img );
+    if(this.usuario.email.split('@')[1] == 'unprg.edu.pe'){
+      this.modalImagenService.abrirModal( 'publicaciones', publicacion._id, publicacion.img );
+
+    }
 
   }
 
@@ -145,7 +154,9 @@ export class PublicacionesComponent implements OnInit, OnDestroy {
   abrirModalPdf(publicacion: Publicacion) {
     console.log(publicacion.articulo)
     this.modalPdfService.abrirModal( 'publicaciones', publicacion._id, publicacion.articulo );
-
+    this.modalPdfService.nuevoPdf.subscribe(e =>{
+      this.cargarPublicaciones()
+    })
   }
   esunNoPdf(ruta:string):boolean{
 
@@ -162,10 +173,21 @@ export class PublicacionesComponent implements OnInit, OnDestroy {
     this.pdfUploadService.devolver(linkRuta)
   }
   owner(publicacion:Publicacion){
-    if(this.usuarioService.usuario.uid == publicacion.usuario._id){
-      return true
+    let idUsuario;
+    let emailUsuario;
+    if(!publicacion.usuario._id){
+      idUsuario = publicacion['usuario'];
+    }else{
+      idUsuario = publicacion.usuario._id
+      emailUsuario = publicacion.usuario.email;
     }
-    return false
+    if(emailUsuario != undefined && emailUsuario.split('@')[1] != "unprg.edu.pe"){
+      return false;
+    }else{
+      if(this.usuarioService.usuario.uid == idUsuario){
+        return true
+      }
+    }
 
   }
 }

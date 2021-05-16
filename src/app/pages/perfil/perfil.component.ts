@@ -7,6 +7,7 @@ import { FileUploadService } from '../../services/file-upload.service';
 
 import { Usuario } from '../../models/usuario.model';
 import { EscuelaService } from '../../services/escuela.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -28,7 +29,8 @@ export class PerfilComponent implements OnInit {
   constructor( private fb: FormBuilder,
                private usuarioService: UsuarioService,
                private fileUploadService: FileUploadService,
-               private escuelaService:EscuelaService) {
+               private escuelaService:EscuelaService,
+               private router:Router) {
 
     this.usuario = usuarioService.usuario;
     this.escuelaSeleccionado = this.usuario.escuela
@@ -54,6 +56,11 @@ export class PerfilComponent implements OnInit {
 
   }
   actualizarPerfil() {
+    console.log(this.perfilForm.value)
+    if(this.perfilForm.invalid){
+      Swal.fire('Error','Campos no completados correctamente','error');
+      return;
+    }
     this.usuarioService.actualizarPerfil( this.perfilForm.value )
         .subscribe( () => {
           const { nombre, email,escuela } = this.perfilForm.value;
@@ -90,6 +97,7 @@ export class PerfilComponent implements OnInit {
       .then( img => {
         this.usuario.img = img;
         Swal.fire('Guardado', 'Imagen de usuario actualizada', 'success');
+        this.router.navigate(['/']);
       }).catch( err => {
         console.log(err);
         Swal.fire('Error', 'No se pudo subir la imagen', 'error');

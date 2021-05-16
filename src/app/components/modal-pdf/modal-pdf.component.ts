@@ -3,6 +3,7 @@ import Swal from 'sweetalert2';
 
 import { PdfUploadService } from '../../services/pdf-upload.service';
 import { ModalPdfService } from '../../services/modal-pdf.service';
+import { PublicacionesComponent } from 'src/app/pages/mantenimientos/publicaciones/publicaciones.component';
 
 
 
@@ -16,6 +17,7 @@ export class ModalPdfComponent implements OnInit {
   public pdfSubir: File;
   public pdfTemp: any = null;
   public pdfImg:string = './assets/images/temasimg/pdfImage.png';
+  public sePudoSubir:boolean = false;
 
   constructor( public modalPdfService: ModalPdfService,
                public pdfUploadService: PdfUploadService  ) { }
@@ -47,7 +49,7 @@ export class ModalPdfComponent implements OnInit {
   }
 
   subirPdf() {
-
+    this.sePudoSubir = false;
     const id   = this.modalPdfService.id;
     const tipo = this.modalPdfService.tipo;
     console.log(id,tipo)

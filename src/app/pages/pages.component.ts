@@ -27,7 +27,7 @@ export class PagesComponent implements OnInit {
     this.comprobarEscuelaEscogida();
   }
   comprobarEscuelaEscogida(){
-    if(this.usuario.escuela == undefined){
+    if(this.usuario.escuela == undefined && this.usuario.email.split('@')[1] == "unprg.edu.pe" && this.usuario.role!="ADMIN_ROLE"){
       Swal.fire('No olvides', `${ this.usuario.nombre }, aún no seleccionas tu escuela profesional, por favor, ir a tu perfil`, 'warning');
     }
   }

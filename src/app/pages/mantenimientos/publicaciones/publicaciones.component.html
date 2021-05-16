@@ -45,7 +45,7 @@
                     <div class="col align-middle">
 
                       <div class="input-group">
-                        <label for="exampleInputText3">Tema</label> &nbsp;
+                        <label for="exampleInputText3">Tema</label> &nbsp;&nbsp;
                         <form class="form-horizontal"
                         [formGroup]="publicacionForm"
 
@@ -53,11 +53,12 @@
                           <select
                                   formControlName="tema">
                               <!-- <option value="temas[0]._id">{{temas[0].nombre}}</option> -->
-                              <option value="" disabled selected>Selecciona</option>
+                              <option value="" disabled>Selecciona</option>
                               <option *ngFor="let tema of temas"
                                   [value]="tema._id" selected>
                                   {{ tema.nombre }}
                               </option>
+                              <option value="3" selected>Todos</option>
                           </select>
                         </form>
 
@@ -65,7 +66,7 @@
 
 
                     </div>
-                    <div class="col ">
+                    <div class="col " *ngIf="usuario.email.split('@')[1] == 'unprg.edu.pe'">
                         <div class="text-right">
 
                             <a class="btn btn-info"
@@ -96,7 +97,11 @@
                                     <img [src]="publicacion.img | imagen:'publicaciones'"
                                         [alt]="publicacion.nombre"
                                         class="w100 cursor"
-                                        (click)="abrirModal(publicacion)">
+                                        (click)="abrirModal(publicacion)" *ngIf="owner(publicacion) || usuario.role == 'ADMIN_ROLE'">
+                                    <img [src]="publicacion.img | imagen:'publicaciones'"
+                                        [alt]="publicacion.nombre"
+                                        class="w100 cursor"
+                                        *ngIf="!owner(publicacion) && usuario.role != 'ADMIN_ROLE'">
                                 </td>
                                 <td class="align-middle">
                                     {{ publicacion.nombre }}
@@ -127,23 +132,24 @@
 
                                   </ng-template>
                                   <ng-template #mostrardescarga>
-
+                                    <button class="btn btn-primary" (click)="abrirModalPdf(publicacion)"
+                                    *ngIf="owner(publicacion) || usuario.role=='ADMIN_ROLE'">CAMBIAR</button>
                                     <button (click)="mostrarArchivo(inputV.value)" class="btn btn-danger">DESCARGAR</button>
                                   </ng-template>
 
                                 </td>
 
-                                <td class="text-nowrap align-middle"  *ngIf="owner(publicacion)">
+                                <td class="text-nowrap align-middle" >
                                     <a [routerLink]="['/dashboard','publicacion', publicacion._id ]"
                                         data-toggle="tooltip"
-                                        data-original-title="Editar">
+                                        data-original-title="Editar"  *ngIf="owner(publicacion) || usuario.role=='ADMIN_ROLE'">
                                         <i class="fa fa-pencil text-inverse m-r-10"></i>
                                     </a>
 
                                     <a class="cursor"
                                         data-toggle="tooltip"
                                         data-original-title="Borrar"
-                                        (click)="borrarPublicacion( publicacion )">
+                                        (click)="borrarPublicacion( publicacion )" *ngIf="usuario.role=='ADMIN_ROLE'">
                                         <i class="fa fa-trash text-danger"></i>
                                     </a>
                                 </td>
