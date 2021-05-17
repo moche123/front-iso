@@ -1,7 +1,107 @@
-<h1>BIENVENIDO, {{usuarioNombre}}</h1>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <style>
+   
+    h1{
+    color: #FFF;
+	font-family: "Pesita";
+    font-size: 3em;
+    text-align: center;
+    
+}
+section{
+  
+	border-radius: 0.5em;
+	margin: 0 auto;
+  height: 320px;
+}
 
 
+div#s1{
+  float:left;
+  background:url("./assets/images/Unprg2.jpg");
+  margin: auto;
+  width: 530px;
+  height: 700px;
+}
+div#s2{
+  float: right;
+  background-color:silver;
+  margin: auto;
+  width: 500px;
+  height:700px;
+}
 
+@font-face{
+	font-family: "Chalet";
+	src: url("../fonts/Chalet.eot");
+	src: url("../fonts/Chalet.eot?#iefix") format("embedded-opentype"),
+		 url("../fonts/Chalet.woff") format("woff"),
+		 url("../fonts/Chalet.ttf") format("truetype"),
+		 url("../fonts/Chalet.svg#Chalet") format("svg");
+	font-weight: normal;
+	font-style: normal;
+}
+
+@font-face{
+	font-family: "Pecita";
+	src: url("../fonts/Pecita.eot");
+	src: url("../fonts/Pecita.eot?#iefix") format("embedded-opentype"),
+		 url("../fonts/Pecita.woff") format("woff"),
+		 url("../fonts/Pecita.ttf") format("truetype"),
+		 url("../fonts/Pecita.svg#Chalet") format("svg");
+	font-weight: normal;
+	font-style: normal;
+}
+
+  </style>
+</head>
+<body >
+    <div id="s1">
+      
+     </div>
+     <div id="s2">
+       <section>
+        <h1>BIENVENIDO</h1>
+        <h1>{{usuarioNombre}}</h1>
+       </section>
+       <section>
+        <div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-indicators">
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="1" aria-label="Slide 2"></button>
+            <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="2" aria-label="Slide 3"></button>
+          </div>
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img src="./assets/images/carrusel1.png" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./assets/images/carrusel2.png" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item">
+              <img src="./assets/images/carrusel3.png" class="d-block w-100" alt="...">
+            </div>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden"></span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden"></span>
+          </button>
+        </div>
+       </section>
+     </div>
+    
+</body>
+</html>
+
+
+      
+    
 <!-- <div *ngFor="let comentario of comentarios" class="mb-5">
   <div class="row">
 
