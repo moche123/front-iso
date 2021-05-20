@@ -36,10 +36,10 @@ export class ArticulosAprobadosComponent implements OnInit {
   }
   async abrirSweetAlert() {
     const { value = '' } = await Swal.fire<string>({
-      title: 'Crear tema',
-      text: 'Ingrese el nombre del articulo a agregar',
+      title: 'Crear artículo aprobado',
+      text: 'Ingrese el código del articulo a agregar',
       input: 'text',
-      inputPlaceholder: 'Nombre del articulo',
+      inputPlaceholder: 'Código del articulo',
       showCancelButton: true,
     });
 
