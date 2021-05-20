@@ -181,7 +181,7 @@ export class PublicacionesComponent implements OnInit, OnDestroy {
       idUsuario = publicacion.usuario._id
       emailUsuario = publicacion.usuario.email;
     }
-    if(emailUsuario != undefined && emailUsuario.split('@')[1] != "unprg.edu.pe"){
+    if(emailUsuario != undefined && emailUsuario.split('@')[1] == "hotmail.com"){
       return false;
     }else{
       if(this.usuarioService.usuario.uid == idUsuario){

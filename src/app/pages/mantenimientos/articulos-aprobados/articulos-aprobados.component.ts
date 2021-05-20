@@ -57,6 +57,7 @@ export class ArticulosAprobadosComponent implements OnInit {
     this.articuloAprobadoService.cargarArticulosAprobados()
       .subscribe( e => {
         this.cargando = false;
+        console.log(e);
         this.listArticulos = e.filter(art => art.habilitado == true);
       });
   }
