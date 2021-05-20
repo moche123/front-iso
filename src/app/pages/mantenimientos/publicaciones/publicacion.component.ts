@@ -90,7 +90,11 @@ export class PublicacionComponent implements OnInit {
   }
 
   guardarPublicacion() {
-
+    console.log('Hola');
+    if(this.publicacionForm.invalid){
+      Swal.fire('Atención','Llena los campos','warning');
+      return;
+    }
     const { nombre } = this.publicacionForm.value;
 
     if ( this.publicacionSeleccionado ) {
@@ -122,14 +126,21 @@ export class PublicacionComponent implements OnInit {
   }
   existeArticuloAprobado(event){
     //console.log(event.target.value)
-    if(event.target.value.length>20){
+    if(/* event.target.value.length>20 */1==1){
       this.publicacionService.verificarArticuloAprobado(event.target.value).
       subscribe((e:any) =>{
         console.log(e)
-        this.codigoCAA = true;
-        if(e.articulo){
-          this.mensajeEncontrado = 'Codigo encontrado'
+        if(e.articulo.length == 1){
+          this.codigoCAA = true;
+          if(e.articulo){
+            this.mensajeEncontrado = 'Codigo encontrado'
+          }
+        }else{
+          console.log('no encontrado');
+        this.codigoCAA = false;
+        this.mensajeEncontrado = ''
         }
+
       },err =>{
         console.log('no encontrado');
         this.codigoCAA = false;
@@ -141,7 +152,6 @@ export class PublicacionComponent implements OnInit {
     }
 
   }
-
 
 
 

@@ -58,25 +58,25 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                 <th class="w100">Código</th>
-                                <th class="w100">Nombre</th>
+                                <!--  <th class="w100">Código</th> -->
+                                <th class="w100">Código (UNPRG)</th>
                                 <th class="w100 text-nowrap text-center">Acciones</th>
                             </tr>
                         </thead>
                         <tbody>
                             <tr *ngFor="let articulo of listArticulos">
-                                <td class="align-middle">
+                               <!--  <td class="align-middle">
                                     <input type="text"
                                             class="form-control"
                                             placeholder="Código del artículo"
                                             disabled
                                             [(ngModel)]="articulo._id" *ngIf="usuario.role=='ADMIN_ROLE'"/>
 
-                                </td>
+                                </td> -->
                                 <td class="align-middle">
                                     <input type="text"
                                             class="form-control"
-                                            placeholder="Nombre del artículo"
+                                            placeholder="Código del artículo"
                                             disabled
                                             [(ngModel)]="articulo.nombre" *ngIf="usuario.role=='ADMIN_ROLE'"/>
 

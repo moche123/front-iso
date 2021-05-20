@@ -2,7 +2,7 @@
     <div class="col-12">
         <div class="card">
             <div class="card-body">
-                
+
                 <input type="text"
                         class="form-control"
                         placeholder="Buscar usuario..."
@@ -12,12 +12,12 @@
             </div>
         </div>
     </div>
-</div> 
+</div>
 
 <div class="row animated fadeIn fast"
      *ngIf="cargando">
     <div class="col-12">
-        
+
         <div class="alert alert-info text-center">
           <h4 class="alert-heading">Cargando</h4>
           <i class="fa fa-spin fa-refresh fa-2x"></i>
@@ -25,10 +25,10 @@
         </div>
 
     </div>
-</div> 
+</div>
 
 
-<div class="row animated fadeIn fast" 
+<div class="row animated fadeIn fast"
     *ngIf="!cargando">
     <div class="col-12">
         <div class="card">
@@ -50,15 +50,20 @@
                         <tbody>
                             <tr *ngFor="let usuario of usuarios">
                                 <td class="text-center">
-                                    <img [src]="usuario.imagenUrl" 
+                                    <img [src]="usuario.imagenUrl"
                                             alt="Avatar de usuario"
                                             class="avatar cursor"
                                             (click)="abrirModal(usuario)">
                                 </td>
-                                <td>{{ usuario.email }}</td>
-                                <td>{{ usuario.nombre }}</td>
-
-                                <td>
+                                <td *ngIf="usuario.email.split('@')[1] != 'hotmail.com'; else noCorreo">{{ usuario.email }}</td>
+                                <ng-template #noCorreo>
+                                  <td>-</td>
+                                </ng-template>
+                                <td *ngIf="usuario.email.split('@')[1] != 'hotmail.com'; else noNombre">{{ usuario.nombre }}</td>
+                                <ng-template #noNombre>
+                                  <td>VISITANTE</td>
+                                </ng-template>
+                                <td *ngIf="usuario.email.split('@')[1] != 'hotmail.com'; else noRole">
                                     <select class="form-control"
                                             [(ngModel)]="usuario.role"
                                             (change)="cambiarRole( usuario )">
@@ -66,22 +71,30 @@
                                         <option value="USER_ROLE">User</option>
                                     </select>
                                 </td>
-
-                                <td>
-                                    <span *ngIf="usuario.google" class="label label-danger">Google</span>    
-                                    <span *ngIf="!usuario.google" class="label label-info">Email</span>    
+                                <ng-template #noRole>
+                                  <td>-</td>
+                                </ng-template>
+                                <td *ngIf="usuario.email.split('@')[1] != 'hotmail.com'; else noGoogle">
+                                    <span *ngIf="usuario.google" class="label label-danger">Google</span>
+                                    <span *ngIf="!usuario.google" class="label label-info">Email</span>
                                 </td>
-
-                                <td class="text-nowrap text-center">                                  
-                                    <a data-toggle="tooltip" 
+                                <ng-template #noGoogle>
+                                  <td>-</td>
+                                </ng-template>
+                                <td *ngIf="usuario.email.split('@')[1] != 'hotmail.com'; else noDelete"
+                                class="text-nowrap text-center">
+                                    <a data-toggle="tooltip"
                                         data-original-title="Borrar"
                                         class="cursor"
                                         (click)="eliminarUsuario(usuario)">
-                                        <i class="fa fa-close text-danger"></i> 
+                                        <i class="fa fa-close text-danger"></i>
                                     </a>
                                 </td>
+                                <ng-template #noDelete>
+                                  <td>-</td>
+                                </ng-template>
                             </tr>
-                            
+
                         </tbody>
                     </table>
                 </div>
