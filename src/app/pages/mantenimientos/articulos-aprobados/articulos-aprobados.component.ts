@@ -48,6 +48,8 @@ export class ArticulosAprobadosComponent implements OnInit {
         .subscribe( (resp: any) => {
           Swal.fire(' Creado', `${value} creado!`, 'success')
         this.cargarArticulosAprobados();
+        },error=>{
+          Swal.fire(' Ups', `Error mientras se creo o quizá código repetido!`, 'error')
         })
     }
   }
