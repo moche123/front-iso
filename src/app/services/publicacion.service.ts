@@ -27,7 +27,7 @@ export class PublicacionService {
     }
   }
 
-
+ 
   cargarPublicaciones() {
 
     const url = `${ base_url }/publicaciones`;
@@ -45,7 +45,7 @@ export class PublicacionService {
                 map( (resp: {ok: boolean, publicacion: Publicacion }) => resp.publicacion )
               );
   }
-
+ 
   crearPublicacion( publicacion: { nombre: string, tema: string } ) {
 
     const url = `${ base_url }/publicaciones`;

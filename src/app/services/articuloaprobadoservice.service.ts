@@ -30,7 +30,7 @@ export class ArticuloaprobadoserviceService {
                 map( (resp: {ok: boolean, articulosAprobados: ArticuloAprobado[] }) => resp.articulosAprobados )
               );
   }
-
+ 
   crearArticuloAprobado( value:string ){
     const url =  `${ base_url }/articulosaprobados`;
     return this.http.post( url,{nombre:value}, this.headers )
