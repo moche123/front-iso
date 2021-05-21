@@ -82,7 +82,7 @@
                             <li *ngIf="!usuario.email.includes('hotmail')"><a routerLink="./perfil"><i class="ti-user"></i> Mi perfil</a></li>
 
                             <li role="separator" class="divider" *ngIf="!usuario.email.includes('hotmail')"></li>
-                            <li *ngIf="!usuario.email.includes('hotmail')"><a routerLink="account-settings"><i class="ti-settings"></i> Configuracion de cuenta</a></li>
+                            <!-- <li *ngIf="!usuario.email.includes('hotmail')"><a routerLink="account-settings"><i class="ti-settings"></i> Configuracion de cuenta</a></li> -->
                             <li role="separator" class="divider" *ngIf="!usuario.email.includes('hotmail')"></li>
                             <li>
                                 <a (click)="logout()" class="cursor">

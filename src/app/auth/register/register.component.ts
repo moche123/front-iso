@@ -15,8 +15,8 @@ export class RegisterComponent {
   public formSubmitted = false;
 
   public registerForm = this.fb.group({
-    nombre: ['Fernando', Validators.required ],
-    email: ['test100@gmail.com', [ Validators.required, Validators.email ] ],
+    nombre: ['Admin', Validators.required ],
+    email: ['admin@unprg.edu.pe', [ Validators.required, Validators.email ] ],
     password: ['123456', Validators.required ],
     password2: ['123456', Validators.required ],
     terminos: [ true, Validators.required ],

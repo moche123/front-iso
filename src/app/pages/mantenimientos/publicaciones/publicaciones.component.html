@@ -97,9 +97,11 @@
                                     <img [src]="publicacion.img | imagen:'publicaciones'"
                                         [alt]="publicacion.nombre"
                                         class="w100 cursor"
+                                        onerror="this.src='../assets/images/alert/model3.png'"
                                         (click)="abrirModal(publicacion)" *ngIf="owner(publicacion) || usuario.role == 'ADMIN_ROLE'">
                                     <img [src]="publicacion.img | imagen:'publicaciones'"
                                         [alt]="publicacion.nombre"
+                                        onerror="this.src='../assets/images/alert/model3.png'"
                                         class="w100 cursor"
                                         *ngIf="!owner(publicacion) && usuario.role != 'ADMIN_ROLE'">
                                 </td>

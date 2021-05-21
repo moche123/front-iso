@@ -33,6 +33,7 @@ export class PerfilComponent implements OnInit {
                private router:Router) {
 
     this.usuario = usuarioService.usuario;
+    console.log(this.usuario)
     this.escuelaSeleccionado = this.usuario.escuela
 
   }

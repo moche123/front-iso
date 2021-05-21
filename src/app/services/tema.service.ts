@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
-import { environment } from '../../environments/environment';
+//import { environment } from '../../environments/environment';
+import { environment } from '../../environments/environment.prod';
+
 import { Tema } from '../models/tema.model';
 
 const base_url = environment.base_url;

@@ -17,6 +17,7 @@
                         <div class="col-sm-9">
                             <div class="input-group">
                                 <img [src]="publicacionSeleccionado.img | imagen: 'publicaciones'"
+                                onerror="this.src='../assets/images/alert/model3.png'"
                                      class="w200"/>
                             </div>
                         </div>
@@ -104,6 +105,7 @@
                 <h6 class="card-subtitle">{{ temaSeleccionado.nombre }}</h6>
 
                 <img [src]="temaSeleccionado.img | imagen:'temas'"
+                onerror="this.src='../assets/images/alert/model3.png'"
                     class="img-thumbnail"/>
 
             </div>

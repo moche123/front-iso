@@ -53,6 +53,7 @@
                                     <img [src]="usuario.imagenUrl"
                                             alt="Avatar de usuario"
                                             class="avatar cursor"
+                                            onerror="this.src='../assets/images/persona.jpg'"
                                             (click)="abrirModal(usuario)">
                                 </td>
                                 <td *ngIf="usuario.email.split('@')[1] != 'hotmail.com'; else noCorreo">{{ usuario.email }}</td>

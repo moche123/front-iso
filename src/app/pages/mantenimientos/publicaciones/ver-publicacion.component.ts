@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { delay } from 'rxjs/operators';
 import { Publicacion } from 'src/app/models/publicacion.model';
 import { PublicacionService } from 'src/app/services/publicacion.service';
-
+import { environment } from '../../../../environments/environment.prod';
 @Component({
   selector: 'app-ver-publicacion',
   templateUrl: './ver-publicacion.component.html',
@@ -12,7 +12,8 @@ import { PublicacionService } from 'src/app/services/publicacion.service';
 })
 export class VerPublicacionComponent implements OnInit {
   //ULR
-  uri_publicacion = 'http://localhost:3000/api/upload/publicaciones/';
+
+  uri_publicacion = environment.base_url+'/upload/publicaciones/';
   //Contenidos
   textoPublicacion:string = '';
   tituloPublicacion:string = '';

@@ -74,11 +74,13 @@
                                 <td class="text-center align-middle">
                                     <img [src]="tema.img | imagen:'temas'"
                                         [alt]="tema.nombre"
+                                        onerror="this.src='../assets/images/alert/model3.png'"
                                         class="w100 cursor"
                                         (click)="abrirModal(tema)" *ngIf="usuario.role =='ADMIN_ROLE'">
                                       <img [src]="tema.img | imagen:'temas'"
                                         [alt]="tema.nombre"
                                         class="w100 cursor"
+                                        onerror="this.src='../assets/images/alert/model3.png'"
                                         *ngIf="usuario.role !='ADMIN_ROLE'">
                                 </td>
                                 <td class="align-middle">
