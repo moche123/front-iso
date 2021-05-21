@@ -1,0 +1,18 @@
+.row_inicio{
+    height: inherit;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.carta_dash img{
+    max-width: 40px;
+    max-height: 40px;
+}
+.content_card{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white !important;
+}
