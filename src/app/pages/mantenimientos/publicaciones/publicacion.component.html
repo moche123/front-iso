@@ -76,7 +76,7 @@
                                              placeholder="Ingrese código CAA"
                                              (input)="existeArticuloAprobado($event)">
                         </div>
-                        <span class="text-danger" *ngIf="codigoCAA==false">No encontrado</span>
+                        <span class="text-danger" *ngIf="codigoCAA==false">No encontrado o ya publicado</span>
                         <span class="text-success" *ngIf="mensajeEncontrado.length>0">Encontrado</span>
                       </div>
                     </div>

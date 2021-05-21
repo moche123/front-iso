@@ -132,8 +132,11 @@ export class PublicacionComponent implements OnInit {
         console.log(e)
         if(e.articulo.length == 1){
           this.codigoCAA = true;
-          if(e.articulo){
+          if(e.articulo[0].publicado == false){
             this.mensajeEncontrado = 'Codigo encontrado'
+          }else{
+            this.codigoCAA = false;
+            this.mensajeEncontrado = ''
           }
         }else{
           console.log('no encontrado');
