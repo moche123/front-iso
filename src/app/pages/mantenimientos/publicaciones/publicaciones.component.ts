@@ -99,7 +99,7 @@ export class PublicacionesComponent implements OnInit, OnDestroy {
     this.publicacionService.cargarPublicaciones()
       .subscribe( publicaciones => {
         this.cargando = false;
-        this.publicaciones = publicaciones.filter(pub => pub.habilitado && pub.tema.habilitado && pub.artic.habilitado);
+        this.publicaciones = publicaciones.filter(pub => pub.habilitado && pub.tema.habilitado);
       });
   }
 

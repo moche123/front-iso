@@ -161,7 +161,7 @@ export class UsuarioService {
             .pipe(
               map( resp => {
                 const usuarios = resp.usuarios.map(
-                  user => new Usuario(user.nombre, user.email, '', user.img, user.google, user.role, user.uid, user.escuela )
+                  user => new Usuario(user.nombre, user.email, '', user.img, user.google, user.role, user.uid, user.escuela,user.habilitado )
                 );
                 return {
                   total: resp.total,
