@@ -111,6 +111,7 @@ export class PublicacionesComponent implements OnInit, OnDestroy {
 
     this.busquedasService.buscar( 'publicaciones', termino )
         .subscribe( (resp:any) => {
+
           this.publicaciones = resp.filter(pub => pub.habilitado && pub.tema.habilitado && pub.usuario.habilitado);
         });
   }
