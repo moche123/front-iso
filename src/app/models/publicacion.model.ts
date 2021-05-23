@@ -6,6 +6,7 @@ interface _PublicacionUser {
     nombre: string;
     img: string;
     email: string;
+    habilitado?:boolean;
 }
 
 

@@ -82,7 +82,7 @@ export class PublicacionesComponent implements OnInit, OnDestroy {
     this.busquedasService.filtrarTema(temaSeleccionado).subscribe(
       (e:any) => {
         this.publicaciones = e.resultado
-        console.log(this.publicaciones)
+        console.log(this.publicaciones.filter(pub => pub.habilitado && pub.tema.habilitado && pub.usuario.habilitado))
       }
     )
   }
@@ -99,7 +99,7 @@ export class PublicacionesComponent implements OnInit, OnDestroy {
     this.publicacionService.cargarPublicaciones()
       .subscribe( publicaciones => {
         this.cargando = false;
-        this.publicaciones = publicaciones.filter(pub => pub.habilitado && pub.tema.habilitado);
+        this.publicaciones = publicaciones.filter(pub => pub.habilitado && pub.tema.habilitado && pub.usuario.habilitado);
       });
   }
 
@@ -110,8 +110,8 @@ export class PublicacionesComponent implements OnInit, OnDestroy {
     }
 
     this.busquedasService.buscar( 'publicaciones', termino )
-        .subscribe( resp => {
-          this.publicaciones = resp;
+        .subscribe( (resp:any) => {
+          this.publicaciones = resp.filter(pub => pub.habilitado && pub.tema.habilitado && pub.usuario.habilitado);
         });
   }
 
