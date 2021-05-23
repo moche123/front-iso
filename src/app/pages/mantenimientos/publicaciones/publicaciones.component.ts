@@ -90,7 +90,7 @@ export class PublicacionesComponent implements OnInit, OnDestroy {
 
     this.temaService.cargarTemas()
       .subscribe( (temas: Tema[]) => {
-        this.temas = temas.filter(t  => t.habilitado== true);
+        this.temas = temas.filter(t  => t.habilitado);
       })
 
   }
@@ -99,7 +99,7 @@ export class PublicacionesComponent implements OnInit, OnDestroy {
     this.publicacionService.cargarPublicaciones()
       .subscribe( publicaciones => {
         this.cargando = false;
-        this.publicaciones = publicaciones.filter(pub => pub.habilitado == true);
+        this.publicaciones = publicaciones.filter(pub => pub.habilitado && pub.tema.habilitado && pub.artic.habilitado);
       });
   }
 

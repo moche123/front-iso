@@ -1,3 +1,4 @@
+import { ArticuloAprobado } from './articuloaprobado.model';
 import { Tema } from './tema.model';
 
 interface _PublicacionUser {
@@ -16,6 +17,7 @@ export class Publicacion {
         public img?: string,
         public usuario?: _PublicacionUser,
         public tema?: Tema,
+        public artic?:ArticuloAprobado,
         public contenido?:string,
         public articulo?:string,
         public habilitado?:boolean,

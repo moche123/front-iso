@@ -36,7 +36,7 @@ export class LoginComponent implements OnInit {
   login() {
     //console.log(this.loginForm.value);
     if(this.loginForm.value.email.length<=0
-      && this.loginForm.value.password.length<=0 ) {
+      || this.loginForm.value.password.length<=0 ) {
       Swal.fire('Atento','Llene todos los campos del formulario' , 'warning' );
       return;
     }

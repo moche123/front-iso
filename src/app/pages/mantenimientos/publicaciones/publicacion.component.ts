@@ -106,6 +106,7 @@ export class PublicacionComponent implements OnInit {
       this.publicacionService.actualizarPublicacion( data )
         .subscribe( resp => {
           Swal.fire('Actualizado', `${ nombre } actualizado correctamente`, 'success');
+          this.router.navigateByUrl('/dashboard/publicaciones');
         })
 
     } else {
@@ -114,8 +115,8 @@ export class PublicacionComponent implements OnInit {
       this.publicacionService.crearPublicacion( this.publicacionForm.value )
           .subscribe( (resp: any) => {
             Swal.fire('Creado', `${ nombre } creado correctamente`, 'success');
-
-            this.router.navigateByUrl(`/dashboard/publicacion/${ resp.publicacion._id }`)
+            this.router.navigateByUrl('/dashboard/publicaciones');
+            //this.router.navigateByUrl(`/dashboard/publicacion/${ resp.publicacion._id }`)
         },err=>{
             Swal.fire('Error', `Tema presenta errores al crearse`, 'error');
         })

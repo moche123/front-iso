@@ -43,7 +43,7 @@ export class PerfilComponent implements OnInit {
     this.perfilForm = this.fb.group({
       nombre: [ this.usuario.nombre , Validators.required ],
       email: [ this.usuario.email, [ Validators.required, Validators.email ] ],
-      escuela: ['', Validators.required ],
+      escuela: [this.usuario.escuela, Validators.required ],
     });
     this.cargarEscuelas();
   }
@@ -69,6 +69,7 @@ export class PerfilComponent implements OnInit {
           this.usuario.email = email;
           this.usuario.escuela = escuela;
           Swal.fire('Guardado', 'Cambios fueron guardados', 'success');
+          this.router.navigate(['/']);
         }, (err) => {
           Swal.fire('Error', err.error.msg, 'error');
         });
