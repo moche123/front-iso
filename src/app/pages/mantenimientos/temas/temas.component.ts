@@ -53,9 +53,9 @@ export class TemasComponent implements OnInit, OnDestroy {
     }
 
     this.busquedasService.buscar( 'temas', termino )
-        .subscribe( resp => {
+        .subscribe( (resp:any) => {
 
-          this.temas = resp;
+          this.temas = resp.filter(tem => tem.habilitado == true );
 
         });
   }
