@@ -49,6 +49,7 @@ export class UsuariosComponent implements OnInit, OnDestroy {
         this.usuarios = usuarios;
         this.usuariosTemp = usuarios;
         this.cargando = false;
+        console.log('Cargar usuarios: ',usuarios);
     })
   }
 
@@ -67,13 +68,13 @@ export class UsuariosComponent implements OnInit, OnDestroy {
   buscar( termino: string ) {
 
     if ( termino.length === 0 ) {
-      return this.usuarios = this.usuariosTemp;
+      return this.cargarUsuarios();
     }
 
     this.busquedasService.buscar( 'usuarios', termino )
         .subscribe( (resp: Usuario[]) => {
-
-          this.usuarios = resp.filter((e:any)=>e.habilitado);
+          console.log(resp);
+          this.usuarios = resp.filter((e:any)=>e.habilitado ==true);
 
         });
   }
