@@ -81,8 +81,8 @@ export class PublicacionesComponent implements OnInit, OnDestroy {
     }
     this.busquedasService.filtrarTema(temaSeleccionado).subscribe(
       (e:any) => {
-        this.publicaciones = e.resultado.filter(pub => pub.habilitado && pub.tema.habilitado && pub.usuario.habilitado)
-        this.publicaciones.filter(pub => pub.habilitado && pub.tema.habilitado && pub.usuario.habilitado)
+        this.publicaciones = e.resultado
+        this.publicaciones = this.publicaciones.filter(pub => pub.habilitado && pub.tema.habilitado && pub.usuario.habilitado)
       }
     )
   }
